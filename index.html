@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>RigFort Workspace</title>
-
-    <!-- Подключаем официальный скрипт Telegram Web App -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
     <style>
         :root {
-            /* Переменные цвета: подтягивают цвета из темы Telegram или берут темный дефолт */
             --bg-color: var(--tg-theme-bg-color, #0f1115);
             --card-bg: var(--tg-theme-secondary-bg-color, #1a1d24);
             --text-color: var(--tg-theme-text-color, #ffffff);
@@ -18,104 +15,106 @@
             --accent-green: #2ecc71;
             --accent-red: #e74c3c;
             --accent-blue: #3498db;
+            --border-color: rgba(255, 255, 255, 0.07);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            padding: 16px;
+            padding: 16px 16px 85px 16px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px;
             min-height: 100vh;
         }
 
-        /* Шапка приложения */
+        /* Шапка */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 4px 0;
         }
 
         .header h1 {
             font-size: 20px;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 0.5px;
         }
 
-        .header .badge {
+        .badge {
             background: rgba(52, 152, 219, 0.15);
             color: var(--accent-blue);
             padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
         }
 
-        /* Стильные блоки-карточки */
+        /* Карточки */
         .card {
             background-color: var(--card-bg);
             border-radius: 16px;
-            padding: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 16px;
+            border: 1px solid var(--border-color);
         }
 
-        .user-info {
-            display: flex;
-            align-items: center;
+        /* Экраны-вкладки */
+        .tab-content {
+            display: none;
+            flex-direction: column;
             gap: 14px;
         }
 
-        .avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #3498db, #2ecc71);
+        .tab-content.active {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            font-weight: bold;
-            color: #fff;
         }
 
-        .user-details h2 {
-            font-size: 17px;
-            font-weight: 600;
-            margin-bottom: 3px;
+        /* Профиль */
+        .profile-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
         }
 
-        .user-details p {
-            font-size: 13px;
+        .profile-row:last-child {
+            border-bottom: none;
+        }
+
+        .profile-label {
             color: var(--hint-color);
         }
 
-        /* Блок таймера смены */
+        .profile-val {
+            font-weight: 600;
+            text-align: right;
+        }
+
+        /* Таймер */
         .timer-card {
             text-align: center;
-            padding: 24px 18px;
+            padding: 24px 16px;
         }
 
         .status-pill {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.05);
             padding: 6px 14px;
-            border-radius: 30px;
+            border-radius: 20px;
             font-size: 13px;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .status-dot {
@@ -130,173 +129,369 @@
             box-shadow: 0 0 10px var(--accent-green);
         }
 
-        .timer-display {
-            font-size: 38px;
+        .timer-val {
+            font-size: 40px;
             font-weight: 800;
-            letter-spacing: 1px;
             font-variant-numeric: tabular-nums;
             margin-bottom: 12px;
         }
 
-        /* Прогресс-бар */
-        .progress-container {
-            width: 100%;
+        .progress-box {
             background: rgba(255, 255, 255, 0.08);
             height: 8px;
             border-radius: 4px;
             overflow: hidden;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .progress-bar {
             height: 100%;
             width: 0%;
             background: linear-gradient(90deg, #2ecc71, #3498db);
-            transition: width 0.4s ease;
+            transition: width 0.3s ease;
         }
 
-        .progress-labels {
+        .progress-meta {
             display: flex;
             justify-content: space-between;
             font-size: 12px;
             color: var(--hint-color);
         }
 
-        /* Главная кнопка действия */
-        .main-btn {
+        /* Кнопки действий */
+        .btn {
             width: 100%;
-            padding: 16px;
-            border: none;
+            padding: 15px;
             border-radius: 14px;
-            font-size: 16px;
+            border: none;
+            font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.1s ease, opacity 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            transition: transform 0.1s;
         }
 
-        .main-btn:active {
-            transform: scale(0.97);
+        .btn:active {
+            transform: scale(0.98);
         }
 
-        .btn-start {
+        .btn-green {
             background: linear-gradient(135deg, #2ecc71, #27ae60);
-            color: #ffffff;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+            color: #fff;
         }
 
-        .btn-stop {
+        .btn-red {
             background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: #ffffff;
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+            color: #fff;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            margin-top: 6px;
+        }
+
+        /* Выбор графика */
+        .sched-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .sched-btn {
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-color);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .sched-btn.selected {
+            border-color: var(--accent-blue);
+            background: rgba(52, 152, 219, 0.15);
+            color: var(--accent-blue);
+        }
+
+        /* Нижняя навигационная панель (Таб-бар) */
+        .tabbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 16px;
+            z-index: 100;
+        }
+
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            background: none;
+            border: none;
+            color: var(--hint-color);
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .tab-item.active {
+            color: var(--accent-blue);
+        }
+
+        .tab-item span {
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Шапка компании -->
     <div class="header">
         <h1>🏢 RIGFORT</h1>
-        <div class="badge">WORKSPACE</div>
+        <div class="badge">WORKSPACE APP</div>
     </div>
 
-    <!-- Карточка сотрудника -->
-    <div class="card user-info">
-        <div class="avatar" id="userAvatar">N</div>
-        <div class="user-details">
-            <h2 id="userName">Никифор Иванов</h2>
-            <p id="userPos">Разработчик • График 08:00–17:00</p>
+    <!-- 1. ВКЛАДКА: СМЕНА -->
+    <div class="tab-content active" id="tab-shift">
+        <div class="card timer-card">
+            <div class="status-pill">
+                <span class="status-dot" id="statusDot"></span>
+                <span id="statusText">Загрузка...</span>
+            </div>
+
+            <div class="timer-val" id="timerDisplay">00:00:00</div>
+
+            <div class="progress-box">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <div class="progress-meta">
+                <span id="startMeta">Старт: —</span>
+                <span id="percentLabel">0%</span>
+                <span id="endMeta">Конец: —</span>
+            </div>
+        </div>
+
+        <button class="btn btn-green" id="shiftActionBtn" onclick="toggleShiftAction()">
+            🟢 Начать смену
+        </button>
+    </div>
+
+    <!-- 2. ВКЛАДКА: ПРОФИЛЬ -->
+    <div class="tab-content" id="tab-profile">
+        <div class="card">
+            <h3 style="font-size: 15px; margin-bottom: 10px; color: var(--hint-color);">ЛИЧНЫЕ ДАННЫЕ</h3>
+            <div class="profile-row">
+                <span class="profile-label">Сотрудник</span>
+                <span class="profile-val" id="profileFio">—</span>
+            </div>
+            <div class="profile-row">
+                <span class="profile-label">Должность</span>
+                <span class="profile-val" id="profilePos">—</span>
+            </div>
+            <div class="profile-row">
+                <span class="profile-label">Дата рождения</span>
+                <span class="profile-val" id="profileBirth">—</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 style="font-size: 15px; margin-bottom: 6px; color: var(--hint-color);">РАБОЧИЙ ГРАФИК</h3>
+            <div class="sched-grid">
+                <button class="sched-btn" id="btnSched7" onclick="changeSchedule('7-15')">⏰ 07:00 — 15:00</button>
+                <button class="sched-btn" id="btnSched8" onclick="changeSchedule('8-17')">⏰ 08:00 — 17:00</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 style="font-size: 15px; margin-bottom: 10px; color: var(--hint-color);">СТАТИСТИКА</h3>
+            <div class="profile-row">
+                <span class="profile-label">Этот месяц</span>
+                <span class="profile-val" id="profileMonth">—</span>
+            </div>
+            <div class="profile-row">
+                <span class="profile-label">Всего отработано</span>
+                <span class="profile-val" id="profileTotal">—</span>
+            </div>
+            <button class="btn btn-outline" onclick="resetMonthStats()">🔄 Сбросить часы за месяц</button>
         </div>
     </div>
 
-    <!-- Экран смены и таймер -->
-    <div class="card timer-card">
-        <div class="status-pill">
-            <span class="status-dot" id="statusDot"></span>
-            <span id="statusText">Не на смене</span>
-        </div>
-
-        <div class="timer-display" id="timerDisplay">00:00:00</div>
-
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-
-        <div class="progress-labels">
-            <span>Начало дня</span>
-            <span id="percentLabel">0%</span>
-            <span>Финиш</span>
+    <!-- 3. ВКЛАДКА: АДМИНКА (ВИДНА ТОЛЬКО РУКОВОДСТВУ) -->
+    <div class="tab-content" id="tab-admin">
+        <div class="card">
+            <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--accent-blue);">👑 ПАНЕЛЬ РУКОВОДИТЕЛЯ</h3>
+            <p style="font-size: 13px; color: var(--hint-color); margin-bottom: 14px;">
+                Быстрые отчёты по сотрудникам RigFort. Нажмите действие ниже:
+            </p>
+            <button class="btn btn-outline" onclick="triggerAdminAction('get_online')">👥 Запросить онлайн команды</button>
+            <button class="btn btn-outline" onclick="triggerAdminAction('get_summary')" style="margin-top: 8px;">📋 Запросить сводку за день</button>
         </div>
     </div>
 
-    <!-- Главная сенсорная кнопка действия -->
-    <button class="main-btn btn-start" id="actionBtn" onclick="toggleShift()">
-        <span>🟢 Начать смену</span>
-    </button>
+    <!-- НИЖНЯЯ ПАНЕЛЬ НАВИГАЦИИ (ТАБ-БАР) -->
+    <div class="tabbar">
+        <button class="tab-item active" id="navShift" onclick="switchTab('tab-shift')">
+            <span>🏠</span>Смена
+        </button>
+        <button class="tab-item" id="navProfile" onclick="switchTab('tab-profile')">
+            <span>👤</span>Профиль
+        </button>
+        <button class="tab-item" id="navAdmin" onclick="switchTab('tab-admin')" style="display: none;">
+            <span>👑</span>Руководство
+        </button>
+    </div>
 
     <script>
-        // Инициализация Telegram Web App
         const tg = window.Telegram?.WebApp;
         if (tg) {
             tg.ready();
-            tg.expand(); // Разворачиваем на весь экран смартфона
+            tg.expand();
         }
 
-        let isWorking = false;
-        let secondsWorked = 0;
-        let timerInterval = null;
-        const totalPlannedSeconds = 9 * 3600; // 9 часов для графика 8-17
+        // 1. СЧИТЫВАЕМ ПАРАМЕТРЫ, КОТОРЫЕ ПРИСЛАЛ PYTHON В ССЫЛКЕ!
+        const urlParams = new URLSearchParams(window.location.search);
+        const userStatus = urlParams.get('status') || 'idle';
+        const userFio = urlParams.get('fio') || 'Сотрудник';
+        const userPos = urlParams.get('pos') || 'Специалист';
+        const userBirth = urlParams.get('birth') || 'Не указана';
+        let userSched = urlParams.get('sched') || '8-17';
+        const shiftStartStr = urlParams.get('start'); // Например "2026-09-10 08:30:00"
+        const monthTime = urlParams.get('month') || '0 ч. 0 мин.';
+        const totalTime = urlParams.get('total') || '0 ч. 0 мин.';
+        const isAdmin = urlParams.get('is_admin') === '1';
 
-        function toggleShift() {
-            // Тактильный виброотклик смартфона через Telegram API!
-            if (tg?.HapticFeedback) {
-                tg.HapticFeedback.impactOccurred('heavy');
-            }
+        // 2. ЗАПОЛНЯЕМ ПРОФИЛЬ
+        document.getElementById('profileFio').innerText = userFio;
+        document.getElementById('profilePos').innerText = userPos;
+        document.getElementById('profileBirth').innerText = userBirth;
+        document.getElementById('profileMonth').innerText = monthTime;
+        document.getElementById('profileTotal').innerText = totalTime;
 
-            isWorking = !isWorking;
-            const btn = document.getElementById('actionBtn');
-            const dot = document.getElementById('statusDot');
-            const statusText = document.getElementById('statusText');
-
-            if (isWorking) {
-                // ПЕРЕХОД В РЕЖИМ «НА СМЕНЕ»
-                btn.className = 'main-btn btn-stop';
-                btn.innerHTML = '<span>🔴 Завершить смену</span>';
-                dot.className = 'status-dot active';
-                statusText.innerText = 'На смене (в работе)';
-
-                timerInterval = setInterval(() => {
-                    secondsWorked++;
-                    updateTimerUI();
-                }, 1000);
-
-            } else {
-                // ЗАВЕРШЕНИЕ СМЕНЫ
-                btn.className = 'main-btn btn-start';
-                btn.innerHTML = '<span>🟢 Начать смену</span>';
-                dot.className = 'status-dot';
-                statusText.innerText = 'Смена завершена';
-                clearInterval(timerInterval);
-
-                // Отправляем сигнал в Telegram (если открыто внутри бота)
-                if (tg && tg.sendData) {
-                    tg.sendData(JSON.stringify({ action: "shift_ended", seconds: secondsWorked }));
-                }
-            }
+        // Показываем админ-вкладку, если это руководитель
+        if (isAdmin) {
+            document.getElementById('navAdmin').style.display = 'flex';
         }
 
-        function updateTimerUI() {
-            const h = String(Math.floor(secondsWorked / 3600)).padStart(2, '0');
-            const m = String(Math.floor((secondsWorked % 3600) / 60)).padStart(2, '0');
-            const s = String(secondsWorked % 60).padStart(2, '0');
+        updateScheduleButtons();
+
+        // 3. РАСЧЕТ СМЕНЫ И ЖИВОГО ТАЙМЕРА
+        let isWorking = (userStatus === 'working');
+        let elapsedSeconds = 0;
+        let timerTimer = null;
+        const plannedHours = (userSched === '7-15') ? 8 : 9;
+        const totalPlannedSecs = plannedHours * 3600;
+
+        const actionBtn = document.getElementById('shiftActionBtn');
+        const dot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+
+        if (isWorking) {
+            actionBtn.className = 'btn btn-red';
+            actionBtn.innerText = '🔴 Завершить смену';
+            dot.className = 'status-dot active';
+            statusText.innerText = 'На смене (в работе)';
+
+            // Считаем, сколько секунд сотрудник УЖЕ отработал от реального времени старта!
+            if (shiftStartStr) {
+                const startTimeMs = new Date(shiftStartStr.replace(' ', 'T')).getTime();
+                const nowMs = new Date().getTime();
+                elapsedSeconds = Math.max(0, Math.floor((nowMs - startTimeMs) / 1000));
+            }
+
+            document.getElementById('startMeta').innerText = 'Старт: ' + (shiftStartStr ? shiftStartStr.substring(11, 16) : '—');
+            document.getElementById('endMeta').innerText = 'Конец: ' + (userSched === '7-15' ? '15:00' : '17:00');
+
+            timerTimer = setInterval(() => {
+                elapsedSeconds++;
+                updateTimerDisplay();
+            }, 1000);
+            updateTimerDisplay();
+        } else {
+            actionBtn.className = 'btn btn-green';
+            actionBtn.innerText = '🟢 Начать смену';
+            dot.className = 'status-dot';
+            statusText.innerText = 'Не на смене (отдых)';
+            document.getElementById('startMeta').innerText = 'Старт: ' + (userSched === '7-15' ? '07:00' : '08:00');
+            document.getElementById('endMeta').innerText = 'Конец: ' + (userSched === '7-15' ? '15:00' : '17:00');
+        }
+
+        function updateTimerDisplay() {
+            const h = String(Math.floor(elapsedSeconds / 3600)).padStart(2, '0');
+            const m = String(Math.floor((elapsedSeconds % 3600) / 60)).padStart(2, '0');
+            const s = String(elapsedSeconds % 60).padStart(2, '0');
             document.getElementById('timerDisplay').innerText = `${h}:${m}:${s}`;
 
-            const percent = Math.min(100, Math.floor((secondsWorked / totalPlannedSeconds) * 100));
-            document.getElementById('progressBar').style.width = `${percent}%`;
-            document.getElementById('percentLabel').innerText = `${percent}%`;
+            const percent = Math.min(100, Math.floor((elapsedSeconds / totalPlannedSecs) * 100));
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('percentLabel').innerText = percent + '%';
+        }
+
+        // ================= НАВИГАЦИЯ ПО ТАБАМ =================
+        function switchTab(tabId) {
+            if (tg?.HapticFeedback) tg.HapticFeedback.selectionChanged();
+
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-item').forEach(b => b.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+
+            if (tabId === 'tab-shift') document.getElementById('navShift').classList.add('active');
+            if (tabId === 'tab-profile') document.getElementById('navProfile').classList.add('active');
+            if (tabId === 'tab-admin') document.getElementById('navAdmin').classList.add('active');
+        }
+
+        // ================= ДЕЙСТВИЯ (ОТПРАВКА В PYTHON) =================
+        function toggleShiftAction() {
+            if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('heavy');
+
+            if (isWorking) {
+                // Отправляем сигнал завершения смены
+                sendToBot({ action: "end_shift" });
+            } else {
+                // Отправляем сигнал старта смены
+                sendToBot({ action: "start_shift" });
+            }
+        }
+
+        function changeSchedule(newSched) {
+            if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
+            userSched = newSched;
+            updateScheduleButtons();
+            sendToBot({ action: "set_schedule", schedule: newSched });
+        }
+
+        function updateScheduleButtons() {
+            document.getElementById('btnSched7').className = 'sched-btn ' + (userSched === '7-15' ? 'selected' : '');
+            document.getElementById('btnSched8').className = 'sched-btn ' + (userSched === '8-17' ? 'selected' : '');
+        }
+
+        function resetMonthStats() {
+            if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('warning');
+            if (confirm("Вы точно хотите обнулить часы за текущий месяц?")) {
+                sendToBot({ action: "reset_month" });
+            }
+        }
+
+        function triggerAdminAction(act) {
+            if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+            sendToBot({ action: act });
+        }
+
+        function sendToBot(payload) {
+            if (tg && tg.sendData) {
+                tg.sendData(JSON.stringify(payload));
+            } else {
+                alert("Данные для бота: " + JSON.stringify(payload));
+            }
         }
     </script>
 </body>

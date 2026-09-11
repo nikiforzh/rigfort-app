@@ -32,14 +32,13 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            padding: 16px 16px 95px 16px; /* Запас под увеличенный таб-бар */
+            padding: 16px 16px 95px 16px;
             display: flex;
             flex-direction: column;
             gap: 14px;
             min-height: 100vh;
         }
 
-        /* ШАПКА */
         .header {
             display: flex;
             justify-content: space-between;
@@ -69,7 +68,6 @@
             font-weight: 700;
         }
 
-        /* КАРТОЧКИ */
         .card {
             background-color: var(--card-bg);
             border-radius: 16px;
@@ -86,36 +84,6 @@
 
         .tab-content.active {
             display: flex;
-        }
-
-        /* СЕТКА ВИДЖЕТОВ НА ЭКРАНЕ СМЕНЫ */
-        .dash-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .dash-widget {
-            background: var(--card-sub-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .dash-widget-label {
-            font-size: 11px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .dash-widget-val {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-main);
         }
 
         /* ТРЕКЕР ДНЕЙ НЕДЕЛИ */
@@ -216,7 +184,7 @@
             color: var(--text-muted);
         }
 
-        /* КНОПКИ */
+        /* ГЛАВНАЯ КНОПКА */
         .btn {
             width: 100%;
             padding: 16px;
@@ -243,58 +211,140 @@
             cursor: pointer;
         }
 
-        /* СТРОКИ ПРОФИЛЯ С КНОПКАМИ ИЗМЕНЕНИЯ НАПРОТИВ */
-        .profile-row {
+        /* КАРТОЧКА АКТИВНОСТИ ПОД КНОПКОЙ */
+        .activity-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 14px 16px;
+            border: 1px solid var(--card-border);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .activity-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--card-border);
-        }
-
-        .profile-row:last-child { border-bottom: none; }
-
-        .profile-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .profile-label {
             font-size: 11px;
-            color: var(--text-muted);
-            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--accent-loft);
             letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
-        .profile-val {
+        .activity-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 13px;
+        }
+
+        .activity-label {
+            color: var(--text-muted);
+        }
+
+        .activity-val {
             font-weight: 600;
             color: var(--text-main);
         }
 
-        .edit-icon-btn {
+        .activity-note {
+            font-size: 11px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--card-border);
+            padding-top: 8px;
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* ПРОФИЛЬ В ОДНУ СТРОКУ БЕЗ ПЕРЕНОСОВ */
+        .profile-row-inline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--card-border);
+            gap: 12px;
+            white-space: nowrap;
+        }
+
+        .profile-row-inline:last-child { border-bottom: none; }
+
+        .profile-label-inline {
+            font-size: 13px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .profile-right-inline {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow: hidden;
+            justify-content: flex-end;
+        }
+
+        .profile-val-inline {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .pencil-btn {
             background: var(--card-sub-bg);
             border: 1px solid var(--card-border);
-            color: var(--text-muted);
             border-radius: 8px;
-            padding: 5px 9px;
-            font-size: 12px;
+            padding: 5px 8px;
+            font-size: 13px;
             cursor: pointer;
+            flex-shrink: 0;
+            line-height: 1;
             transition: all 0.2s;
         }
 
-        .edit-icon-btn:active {
+        .pencil-btn:active {
             background: rgba(217, 119, 54, 0.2);
-            color: var(--accent-loft);
         }
 
-        /* СТИЛЬНЫЙ IOS TOGGLE SWITCH */
+        /* БЛОК УВЕДОМЛЕНИЙ */
+        .notice-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 16px;
+            border-radius: 16px;
+        }
+
         .notice-header-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .notice-title-box {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .notice-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .notice-status-text {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--green-glow);
         }
 
         .ios-switch {
@@ -302,6 +352,7 @@
             display: inline-block;
             width: 44px;
             height: 24px;
+            flex-shrink: 0;
         }
 
         .ios-switch input {
@@ -333,7 +384,7 @@
         }
 
         input:checked + .slider {
-            background-color: rgba(217, 119, 54, 0.2);
+            background-color: rgba(217, 119, 54, 0.25);
             border-color: var(--accent-loft);
         }
 
@@ -343,19 +394,15 @@
             box-shadow: 0 0 10px var(--accent-loft);
         }
 
-        .notice-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            padding: 16px;
-            border-radius: 16px;
+        .notice-item-human {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 6px;
         }
 
-        .notice-item {
-            font-size: 11px;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 4px;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+        .notice-item-human:last-child {
+            margin-bottom: 0;
         }
 
         .sched-grid {
@@ -382,7 +429,7 @@
             color: var(--accent-loft);
         }
 
-        /* ВЫТЯНУТЫЙ ТАБ-БАР (БОЛЕЕ СОЛИДНЫЙ И ВЫСОКИЙ) */
+        /* ТАБ-БАР */
         .tabbar {
             position: fixed;
             bottom: 0;
@@ -392,7 +439,7 @@
             border-top: 1px solid var(--card-border);
             display: flex;
             justify-content: space-around;
-            padding: 12px 18px 24px 18px; /* Увеличена высота и зона нажатия */
+            padding: 12px 18px 24px 18px;
             z-index: 100;
             box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.35);
         }
@@ -417,25 +464,24 @@
         }
 
         .tab-item span {
-            font-size: 21px; /* Чуть крупнее и выразительнее иконки */
+            font-size: 21px;
         }
     </style>
 </head>
 <body>
 
-    <!-- ШАПКА -->
     <div class="header">
         <div class="brand-title">
             <h1>RIGFORT</h1>
             <div class="badge-loft">WORKSPACE</div>
         </div>
-        <span style="font-size: 11px; color: var(--text-muted);">LOFT v2.5</span>
+        <span style="font-size: 11px; color: var(--text-muted);">LOFT v2.6</span>
     </div>
 
-    <!-- 1. ВКЛАДКА: СМЕНА (СЕКУНДОМЕР И ДАШБОРД) -->
+    <!-- 1. ВКЛАДКА: СМЕНА -->
     <div class="tab-content active" id="tab-shift">
 
-        <!-- ТРЕКЕР РАБОЧЕЙ НЕДЕЛИ -->
+        <!-- ТРЕКЕР НЕДЕЛИ -->
         <div class="week-tracker">
             <div class="day-chip" id="day-1"><span>ПН</span><span class="day-dot"></span></div>
             <div class="day-chip" id="day-2"><span>ВТ</span><span class="day-dot"></span></div>
@@ -464,91 +510,113 @@
             </div>
         </div>
 
-        <!-- СЕТКА ИНФО-ВИДЖЕТОВ СМЕНЫ -->
-        <div class="dash-grid">
-            <div class="dash-widget">
-                <span class="dash-widget-label">План на смену</span>
-                <span class="dash-widget-val" id="widgetPlannedTime">9 ч. 00 мин.</span>
-            </div>
-            <div class="dash-widget" onclick="toggleWorkMode()" style="cursor: pointer;">
-                <span class="dash-widget-label">Формат работы ▾</span>
-                <span class="dash-widget-val" id="widgetWorkMode" style="color: var(--accent-loft);">🏠 Удалёнка</span>
-            </div>
-        </div>
-
+        <!-- ГЛАВНАЯ КНОПКА ДЕЙСТВИЯ -->
         <button class="btn btn-green-glow" id="shiftActionBtn" onclick="toggleShift()">
             🟢 Начать смену
         </button>
+
+        <!-- НОВЫЙ БЛОК ПОД КНОПКОЙ: АКТИВНОСТЬ ЗА СЕГОДНЯ -->
+        <div class="activity-card">
+            <div class="activity-header">
+                <span>Сегодняшняя смена</span>
+                <span id="todayDateLabel">—</span>
+            </div>
+
+            <div class="activity-row">
+                <span class="activity-label">Статус сессии:</span>
+                <span class="activity-val" id="todayStatusVal">Смена не открыта</span>
+            </div>
+
+            <div class="activity-row">
+                <span class="activity-label">Время на смене:</span>
+                <span class="activity-val" id="todayTimeVal">0 ч. 0 мин.</span>
+            </div>
+
+            <div class="activity-row">
+                <span class="activity-label">Ориентир финиша:</span>
+                <span class="activity-val" id="todayFinishVal">17:00</span>
+            </div>
+
+            <div class="activity-note">
+                <span>ℹ️</span>
+                <span>Данные автоматически вносятся в табель RigFort</span>
+            </div>
+        </div>
+
     </div>
 
     <!-- 2. ВКЛАДКА: ПРОФИЛЬ -->
     <div class="tab-content" id="tab-profile">
 
-        <!-- КАРТОЧКА СОТРУДНИКА С ОТДЕЛЬНЫМИ КНОПКАМИ ИЗМЕНЕНИЯ -->
+        <!-- ДАННЫЕ В ОДНУ СТРОКУ И ТОЛЬКО КАРАНДАШ -->
         <div class="card">
-            <h3 style="font-size: 11px; margin-bottom: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px;">УЧЁТНЫЕ ДАННЫЕ СОТРУДНИКА</h3>
+            <h3 style="font-size: 11px; margin-bottom: 6px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px;">ДАННЫЕ СОТРУДНИКА</h3>
 
-            <div class="profile-row">
-                <div class="profile-info">
-                    <span class="profile-label">Имя и фамилия</span>
-                    <span class="profile-val" id="profileName">Сотрудник</span>
+            <div class="profile-row-inline">
+                <span class="profile-label-inline">Имя и фамилия</span>
+                <div class="profile-right-inline">
+                    <span class="profile-val-inline" id="profileName">Сотрудник</span>
+                    <button class="pencil-btn" onclick="editSingleField('name')">✏️</button>
                 </div>
-                <button class="edit-icon-btn" onclick="editSingleField('name')">✏️ Изменить</button>
             </div>
 
-            <div class="profile-row">
-                <div class="profile-info">
-                    <span class="profile-label">Должность</span>
-                    <span class="profile-val" id="profilePos">Специалист</span>
+            <div class="profile-row-inline">
+                <span class="profile-label-inline">Должность</span>
+                <div class="profile-right-inline">
+                    <span class="profile-val-inline" id="profilePos">Специалист</span>
+                    <button class="pencil-btn" onclick="editSingleField('pos')">✏️</button>
                 </div>
-                <button class="edit-icon-btn" onclick="editSingleField('pos')">✏️ Изменить</button>
             </div>
 
-            <div class="profile-row">
-                <div class="profile-info">
-                    <span class="profile-label">Дата рождения</span>
-                    <span class="profile-val" id="profileBirth">Не указана</span>
+            <div class="profile-row-inline">
+                <span class="profile-label-inline">Дата рождения</span>
+                <div class="profile-right-inline">
+                    <span class="profile-val-inline" id="profileBirth">Не указана</span>
+                    <button class="pencil-btn" onclick="editSingleField('birth')">✏️</button>
                 </div>
-                <button class="edit-icon-btn" onclick="editSingleField('birth')">✏️ Изменить</button>
             </div>
         </div>
 
-        <!-- ВЫБОР ГРАФИКА -->
+        <!-- ГРАФИК -->
         <div class="card">
-            <h3 style="font-size: 11px; margin-bottom: 6px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px;">РЕЖИМ РАБОЧЕГО ГРАФИКА</h3>
+            <h3 style="font-size: 11px; margin-bottom: 6px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px;">РЕЖИМ ГРАФИКА</h3>
             <div class="sched-grid">
                 <button class="sched-btn" id="btnSched7" onclick="setSchedule('7-15')">⏰ 07:00 — 15:00</button>
                 <button class="sched-btn" id="btnSched8" onclick="setSchedule('8-17')">⏰ 08:00 — 17:00</button>
             </div>
         </div>
 
-        <!-- СТРОГИЙ БЛОК УВЕДОМЛЕНИЙ С IOS СВИЧЕМ -->
+        <!-- ЧЕЛОВЕЧЕСКИЙ БЛОК УВЕДОМЛЕНИЙ -->
         <div class="notice-card">
             <div class="notice-header-row">
-                <span style="font-size: 12px; font-weight: 700; color: var(--accent-loft); letter-spacing: 0.5px;">КОНТУР ДИСПЕТЧЕРИЗАЦИИ И ОПОВЕЩЕНИЙ</span>
+                <div class="notice-title-box">
+                    <div class="notice-title">Напоминания по будням</div>
+                    <div class="notice-status-text" id="notifStatusText">Включены</div>
+                </div>
                 <label class="ios-switch">
                     <input type="checkbox" id="notifToggle" onchange="toggleNotifications(this.checked)">
                     <span class="slider"></span>
                 </label>
             </div>
-            <div class="notice-item">[T-30 MIN] 06:30 / 07:30 :: Контрольный сигнал готовности к смене</div>
-            <div class="notice-item">[CHECKIN ] 07:00 / 08:00 :: Фиксация входа в рабочий слот</div>
-            <div class="notice-item">[T-30 MIN] 14:30 / 16:30 :: Регламент подготовки к закрытию смены</div>
-            <div class="notice-item">[WEEKEND ] Пятница 17:00 :: Фиксация недельного пула часов</div>
+
+            <div class="notice-item-human">• За 30 минут до начала — утреннее напоминание о смене</div>
+            <div class="notice-item-human">• В момент начала — напоминание открыть смену в приложении</div>
+            <div class="notice-item-human">• За 30 минут до конца — напоминание вовремя закрыть смену</div>
+            <div class="notice-item-human">• В пятницу вечером — подведение итогов и пожелание выходных</div>
         </div>
 
         <!-- СТАТИСТИКА -->
         <div class="card">
             <h3 style="font-size: 11px; margin-bottom: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px;">СТАТИСТИКА ЧАСОВ</h3>
-            <div style="display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0;">
-                <span style="color: var(--text-muted);">Пул текущего месяца</span>
+            <div style="display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0;">
+                <span style="color: var(--text-muted);">Отработано за этот месяц</span>
                 <span style="font-weight: 700;" id="profileMonth">0 ч. 0 мин.</span>
             </div>
             <button class="btn-loft-outline" style="width: 100%; margin-top: 10px;" onclick="resetMonth()">🔄 Сбросить часы за месяц</button>
         </div>
     </div>
 
-    <!-- 3. ВКЛАДКА: АДМИН-ПАНЕЛЬ -->
+    <!-- 3. ВКЛАДКА: АДМИНКА -->
     <div class="tab-content" id="tab-admin">
         <div class="card">
             <h3 style="font-size: 13px; margin-bottom: 10px; color: var(--accent-loft); text-transform: uppercase; letter-spacing: 0.6px;">👑 ПАНЕЛЬ РУКОВОДИТЕЛЯ</h3>
@@ -562,7 +630,7 @@
         </div>
     </div>
 
-    <!-- ВЫТЯНУТЫЙ ТАБ-БАР (СЕКУНДОМЕР ВМЕСТО ДОМИКА) -->
+    <!-- ВЫТЯНУТЫЙ ТАБ-БАР -->
     <div class="tabbar">
         <button class="tab-item active" id="navShift" onclick="switchTab('tab-shift')">
             <span>⏱</span>Смена
@@ -582,7 +650,7 @@
             tg.expand();
         }
 
-        // ================= ДАННЫЕ СОТРУДНИКА =================
+        // ================= ПОЛУЧЕНИЕ ИМЕНИ =================
         const tgUser = tg?.initDataUnsafe?.user;
         let defaultName = "Сотрудник";
         if (tgUser) {
@@ -599,20 +667,16 @@
         let currentSchedule = localStorage.getItem('rf_schedule') || '8-17';
         let monthSeconds = parseInt(localStorage.getItem('rf_month_seconds') || '0');
         let shiftHistory = JSON.parse(localStorage.getItem('rf_history') || '[]');
-        let workMode = localStorage.getItem('rf_work_mode') || '🏠 Удалёнка';
         let timerInterval = null;
 
-        // ПРОВЕРКА «ВЕЧНОЙ СМЕНЫ»
+        // Инициализация
         checkStaleShift();
-
-        // Инициализация интерфейса
         updateProfileUI();
         updateScheduleUI();
         updateMonthUI();
         initWeekTracker();
-        initNotifToggle();
-
-        document.getElementById('widgetWorkMode').innerText = workMode;
+        initNotifsUI();
+        updateTodayCard();
 
         if (isWorking && shiftStartTime > 0) {
             startTimerUI();
@@ -620,7 +684,7 @@
             stopTimerUI();
         }
 
-        // ================= РЕДАКТИРОВАНИЕ ПУНКТОВ ПО ОТДЕЛЬНОСТИ =================
+        // ================= ПРОФИЛЬ =================
         function updateProfileUI() {
             document.getElementById('profileName').innerText = userName;
             document.getElementById('profilePos').innerText = userPos;
@@ -631,19 +695,19 @@
             if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
 
             if (field === 'name') {
-                const val = prompt("Введите ваше Имя и Фамилию:", userName);
+                const val = prompt("Введите Имя и Фамилию:", userName);
                 if (val && val.trim()) {
                     userName = val.trim();
                     localStorage.setItem('rf_name', userName);
                 }
             } else if (field === 'pos') {
-                const val = prompt("Укажите вашу должность в RigFort:", userPos);
+                const val = prompt("Укажите должность:", userPos);
                 if (val && val.trim()) {
                     userPos = val.trim();
                     localStorage.setItem('rf_pos', userPos);
                 }
             } else if (field === 'birth') {
-                const val = prompt("Укажите дату рождения (например: 15.04.1995):", userBirth);
+                const val = prompt("Укажите дату рождения (ДД.ММ.ГГГГ):", userBirth);
                 if (val && val.trim()) {
                     userBirth = val.trim();
                     localStorage.setItem('rf_birth', userBirth);
@@ -652,15 +716,64 @@
             updateProfileUI();
         }
 
-        // ================= ФОРМАТ РАБОТЫ (УДАЛЁНКА / ОФИС) =================
-        function toggleWorkMode() {
-            if (tg?.HapticFeedback) tg.HapticFeedback.selectionChanged();
-            workMode = (workMode === '🏠 Удалёнка') ? '🏢 Офис' : '🏠 Удалёнка';
-            localStorage.setItem('rf_work_mode', workMode);
-            document.getElementById('widgetWorkMode').innerText = workMode;
+        // ================= УВЕДОМЛЕНИЯ =================
+        function initNotifsUI() {
+            const isEnabled = localStorage.getItem('rf_notifs') !== 'false';
+            document.getElementById('notifToggle').checked = isEnabled;
+            renderNotifStatus(isEnabled);
         }
 
-        // ================= ИНДИКАТОР ДНЯ НЕДЕЛИ =================
+        function renderNotifStatus(enabled) {
+            const el = document.getElementById('notifStatusText');
+            if (enabled) {
+                el.innerText = "Включены";
+                el.style.color = "var(--green-glow)";
+            } else {
+                el.innerText = "Отключены";
+                el.style.color = "var(--text-muted)";
+            }
+        }
+
+        function toggleNotifications(checked) {
+            if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
+            localStorage.setItem('rf_notifs', checked ? 'true' : 'false');
+            renderNotifStatus(checked);
+
+            const alertMsg = checked
+                ? "🔔 Напоминания включены. Бот будет сопровождать ваш рабочий день."
+                : "🔕 Напоминания отключены. Бот не будет присылать утренние и вечерние сигналы.";
+
+            alert(alertMsg);
+        }
+
+        // ================= КАРТОЧКА СЕГОДНЯШНЕЙ АКТИВНОСТИ ПОД КНОПКОЙ =================
+        function updateTodayCard() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
+            document.getElementById('todayDateLabel').innerText = dateStr;
+
+            const plannedFinish = (currentSchedule === '7-15') ? '15:00' : '17:00';
+            document.getElementById('todayFinishVal').innerText = plannedFinish;
+
+            if (isWorking) {
+                document.getElementById('todayStatusVal').innerHTML = `<span style="color: var(--green-glow);">🟢 На смене (с ${shiftStartFormatted})</span>`;
+            } else {
+                // Проверяем, была ли завершена смена сегодня
+                const todayLocale = now.toLocaleDateString();
+                const todayShifts = shiftHistory.filter(s => s.date === todayLocale);
+
+                if (todayShifts.length > 0) {
+                    const last = todayShifts[todayShifts.length - 1];
+                    document.getElementById('todayStatusVal').innerHTML = `<span style="color: var(--accent-loft);">🏁 Завершена (${last.start} - ${last.end})</span>`;
+                    document.getElementById('todayTimeVal').innerText = last.duration;
+                } else {
+                    document.getElementById('todayStatusVal').innerText = "Смена не открыта";
+                    document.getElementById('todayTimeVal').innerText = "0 ч. 0 мин.";
+                }
+            }
+        }
+
+        // ================= ТРЕКЕР НЕДЕЛИ =================
         function initWeekTracker() {
             const dayOfWeek = new Date().getDay(); // 0 - Вс, 1 - Пн ... 5 - Пт
             if (dayOfWeek >= 1 && dayOfWeek <= 5) {
@@ -669,18 +782,7 @@
             }
         }
 
-        // ================= IOS ПЕРЕКЛЮЧАТЕЛЬ УВЕДОМЛЕНИЙ =================
-        function initNotifToggle() {
-            const isEnabled = localStorage.getItem('rf_notifs') !== 'false'; // по умолчанию включены
-            document.getElementById('notifToggle').checked = isEnabled;
-        }
-
-        function toggleNotifications(checked) {
-            if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
-            localStorage.setItem('rf_notifs', checked ? 'true' : 'false');
-        }
-
-        // ================= ЗАЩИТА ОТ ВЕЧНОЙ СМЕНЫ =================
+        // ================= ПРОВЕРКА ЗАБЫТОЙ СМЕНЫ =================
         function checkStaleShift() {
             if (!isWorking || !shiftStartTime) return;
 
@@ -701,11 +803,11 @@
                 localStorage.setItem('rf_is_working', 'false');
                 localStorage.removeItem('rf_shift_start');
 
-                alert(`⚠️ Уведомление диспетчера:\nСмена не была закрыта в регламентный срок.\nСистема зафиксировала нормативный рабочий интервал (${plannedH} ч.).`);
+                alert(`⚠️ Уведомление диспетчера:\nСмена не была закрыта вовремя.\nСистема зафиксировала норматив (${plannedH} ч.) и закрыла смену.`);
             }
         }
 
-        // ================= СТАРТ / СТОП СМЕНЫ =================
+        // ================= СТАРТ / СТОП =================
         function toggleShift() {
             if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('heavy');
 
@@ -750,6 +852,7 @@
 
                 alert(`🔴 Смена завершена!\nВыход: ${shiftStartFormatted} | Финиш: ${shiftEndFormatted}\n⏱ Время: ${durStr}`);
             }
+            updateTodayCard();
         }
 
         function startTimerUI() {
@@ -757,9 +860,7 @@
             btn.className = 'btn btn-red-glow';
             btn.innerText = '🔴 Завершить смену';
 
-            const dot = document.getElementById('statusDot');
-            dot.className = 'status-dot active'; // Green light glow
-
+            document.getElementById('statusDot').className = 'status-dot active';
             document.getElementById('statusText').innerText = 'На смене (в работе)';
             document.getElementById('startMeta').innerText = 'Старт: ' + shiftStartFormatted;
 
@@ -774,9 +875,7 @@
             btn.className = 'btn btn-green-glow';
             btn.innerText = '🟢 Начать смену';
 
-            const dot = document.getElementById('statusDot');
-            dot.className = 'status-dot';
-
+            document.getElementById('statusDot').className = 'status-dot';
             document.getElementById('statusText').innerText = 'Не на смене (отдых)';
             document.getElementById('timerDisplay').innerText = '00:00:00';
             document.getElementById('progressBar').style.width = '0%';
@@ -799,6 +898,9 @@
             const percent = Math.min(100, Math.floor((elapsed / (plannedHours * 3600)) * 100));
             document.getElementById('progressBar').style.width = percent + '%';
             document.getElementById('percentLabel').innerText = percent + '%';
+
+            // Обновляем карточку под кнопкой
+            document.getElementById('todayTimeVal').innerText = `${Math.floor(elapsed / 3600)} ч. ${Math.floor((elapsed % 3600) / 60)} мин.`;
         }
 
         // ================= ГРАФИК И СТАТИСТИКА =================
@@ -807,13 +909,13 @@
             currentSchedule = sched;
             localStorage.setItem('rf_schedule', sched);
             updateScheduleUI();
+            updateTodayCard();
         }
 
         function updateScheduleUI() {
             document.getElementById('btnSched7').className = 'sched-btn ' + (currentSchedule === '7-15' ? 'selected' : '');
             document.getElementById('btnSched8').className = 'sched-btn ' + (currentSchedule === '8-17' ? 'selected' : '');
             document.getElementById('endMeta').innerText = 'Финиш: ' + (currentSchedule === '7-15' ? '15:00' : '17:00');
-            document.getElementById('widgetPlannedTime').innerText = (currentSchedule === '7-15') ? '8 ч. 00 мин.' : '9 ч. 00 мин.';
         }
 
         function resetMonth() {
@@ -831,7 +933,7 @@
             document.getElementById('profileMonth').innerText = `${h} ч. ${m} мин.`;
         }
 
-        // ================= АДМИН-ПАНЕЛЬ (ТОЧНЫЕ ВРЕМЕНА СМЕН) =================
+        // ================= АДМИНКА =================
         function showAdminOnline() {
             if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
             document.getElementById('adminOutputCard').style.display = 'block';
@@ -840,7 +942,7 @@
             if (isWorking) {
                 document.getElementById('adminOutputBody').innerHTML =
                     `🟢 <b>${userName}</b> (${userPos})<br>` +
-                    `• Вышел на смену: в <b>${shiftStartFormatted}</b> [${workMode}]<br>` +
+                    `• Вышел на смену: в <b>${shiftStartFormatted}</b><br>` +
                     `• График: ${currentSchedule === '7-15' ? '07:00–15:00' : '08:00–17:00'}`;
             } else {
                 document.getElementById('adminOutputBody').innerHTML =
@@ -857,7 +959,7 @@
             let output = `<b>Сотрудник:</b> ${userName}<br>`;
 
             if (isWorking) {
-                output += `🟢 <b>На смене прямо сейчас:</b><br>• Вышел на смену: в <b>${shiftStartFormatted}</b> [${workMode}]<br><br>`;
+                output += `🟢 <b>На смене прямо сейчас:</b><br>• Вышел на смену: в <b>${shiftStartFormatted}</b><br><br>`;
             }
 
             if (shiftHistory.length > 0) {

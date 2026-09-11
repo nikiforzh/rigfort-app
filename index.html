@@ -8,17 +8,13 @@
 
     <style>
         :root {
-            /* ТЁПЛАЯ ПАЛИТРА СОВРЕМЕННОГО ЛОФТА */
-            --bg-color: #181513;                /* Глубокий тёплый кофейно-каменный тон */
-            --card-bg: #231f1c;                  /* Тёплый матовый кирпичный сланец */
-            --card-sub-bg: #1c1917;              /* Утопленные блоки */
-            --border-color: rgba(225, 205, 185, 0.08); /* Мягкая бронзово-песочная рамка */
-
-            --text-main: #f5f0eb;               /* Мягкий кремово-белый */
-            --text-muted: #9e9388;              /* Тёплый серый / пергамент */
-            --accent-loft: #d97736;             /* Медно-терракотовый акцент RigFort */
-
-            /* ЖИВОЙ ИЗУМРУДНЫЙ СВЕТ (GREEN LIGHT) */
+            --bg-color: #181513;
+            --card-bg: #231f1c;
+            --card-sub-bg: #1c1917;
+            --border-color: rgba(225, 205, 185, 0.08);
+            --text-main: #f5f0eb;
+            --text-muted: #9e9388;
+            --accent-loft: #d97736;
             --green-glow: #10b981;
             --green-shadow: 0 0 24px rgba(16, 185, 129, 0.45);
             --red-glow: #ef4444;
@@ -43,12 +39,10 @@
             min-height: 100vh;
         }
 
-        /* ШАПКА В СТИЛЕ ЛОФТ */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 2px;
         }
 
         .brand-title {
@@ -61,7 +55,6 @@
             font-size: 19px;
             font-weight: 800;
             letter-spacing: 0.6px;
-            color: var(--text-main);
         }
 
         .badge-loft {
@@ -72,10 +65,8 @@
             border-radius: 8px;
             font-size: 10px;
             font-weight: 700;
-            letter-spacing: 0.5px;
         }
 
-        /* КАРТОЧКИ */
         .card {
             background-color: var(--card-bg);
             border-radius: 16px;
@@ -94,14 +85,12 @@
             display: flex;
         }
 
-        /* ЭКРАН СМЕНЫ */
+        /* ТАЙМЕР */
         .timer-card {
             text-align: center;
             padding: 24px 16px;
-            transition: all 0.3s ease;
         }
 
-        /* Индикатор статуса */
         .status-pill {
             display: inline-flex;
             align-items: center;
@@ -120,10 +109,8 @@
             height: 8px;
             border-radius: 50%;
             background-color: var(--text-muted);
-            transition: all 0.3s ease;
         }
 
-        /* ЭФФЕКТ GREEN LIGHT ПРИ АКТИВНОЙ СМЕНЕ */
         .status-dot.active {
             background-color: var(--green-glow);
             box-shadow: 0 0 12px var(--green-glow);
@@ -133,9 +120,7 @@
             font-size: 42px;
             font-weight: 800;
             font-variant-numeric: tabular-nums;
-            letter-spacing: 0.5px;
             margin-bottom: 12px;
-            color: var(--text-main);
         }
 
         .progress-box {
@@ -144,7 +129,6 @@
             border-radius: 4px;
             overflow: hidden;
             margin-bottom: 7px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
         }
 
         .progress-bar {
@@ -161,7 +145,6 @@
             color: var(--text-muted);
         }
 
-        /* КНОПКИ УПРАВЛЕНИЯ */
         .btn {
             width: 100%;
             padding: 16px;
@@ -170,24 +153,12 @@
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.1s ease, box-shadow 0.2s ease;
+            transition: transform 0.1s ease;
         }
 
-        .btn:active {
-            transform: scale(0.98);
-        }
-
-        .btn-green-glow {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: #ffffff;
-            box-shadow: var(--green-shadow);
-        }
-
-        .btn-red-glow {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: #ffffff;
-            box-shadow: var(--red-shadow);
-        }
+        .btn:active { transform: scale(0.98); }
+        .btn-green-glow { background: linear-gradient(135deg, #10b981, #059669); color: #fff; box-shadow: var(--green-shadow); }
+        .btn-red-glow { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; box-shadow: var(--red-shadow); }
 
         .btn-loft-outline {
             background: var(--card-sub-bg);
@@ -209,10 +180,7 @@
             font-size: 13px;
         }
 
-        .profile-row:last-child {
-            border-bottom: none;
-        }
-
+        .profile-row:last-child { border-bottom: none; }
         .profile-label { color: var(--text-muted); }
         .profile-val { font-weight: 600; text-align: right; }
 
@@ -240,7 +208,6 @@
             color: var(--accent-loft);
         }
 
-        /* БЛОК УВЕДОМЛЕНИЙ */
         .notice-card {
             background: rgba(217, 119, 54, 0.05);
             border: 1px solid rgba(217, 119, 54, 0.2);
@@ -253,9 +220,6 @@
             font-weight: 700;
             color: var(--accent-loft);
             margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
 
         .notice-item {
@@ -265,7 +229,7 @@
             margin-bottom: 3px;
         }
 
-        /* ТАБ-БАР (НАВИГАЦИЯ С СЕКУНДОМЕРОМ ВМЕСТО ДОМИКА) */
+        /* ТАБ-БАР */
         .tabbar {
             position: fixed;
             bottom: 0;
@@ -290,21 +254,14 @@
             font-size: 11px;
             font-weight: 600;
             cursor: pointer;
-            transition: color 0.2s ease;
         }
 
-        .tab-item.active {
-            color: var(--accent-loft);
-        }
-
-        .tab-item span {
-            font-size: 19px;
-        }
+        .tab-item.active { color: var(--accent-loft); }
+        .tab-item span { font-size: 19px; }
     </style>
 </head>
 <body>
 
-    <!-- ШАПКА В СТИЛЕ ЛОФТ -->
     <div class="header">
         <div class="brand-title">
             <h1>RIGFORT</h1>
@@ -313,9 +270,9 @@
         <span style="font-size: 11px; color: var(--text-muted);">LOFT ED.</span>
     </div>
 
-    <!-- 1. ВКЛАДКА: СМЕНА (СЕКУНДОМЕР) -->
+    <!-- 1. ВКЛАДКА: СМЕНА -->
     <div class="tab-content active" id="tab-shift">
-        <div class="card timer-card" id="timerCard">
+        <div class="card timer-card">
             <div class="status-pill">
                 <span class="status-dot" id="statusDot"></span>
                 <span id="statusText">Не на смене</span>
@@ -342,18 +299,21 @@
     <!-- 2. ВКЛАДКА: ПРОФИЛЬ -->
     <div class="tab-content" id="tab-profile">
         <div class="card">
-            <h3 style="font-size: 13px; margin-bottom: 10px; color: var(--text-muted); letter-spacing: 0.5px;">СОТРУДНИК RIGFORT</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h3 style="font-size: 13px; color: var(--text-muted); letter-spacing: 0.5px;">СОТРУДНИК RIGFORT</h3>
+                <span style="font-size: 12px; color: var(--accent-loft); cursor: pointer;" onclick="editProfile()">✏️ Изменить</span>
+            </div>
             <div class="profile-row">
-                <span class="profile-label">ФИО</span>
-                <span class="profile-val" id="profileFio">Иванов Никифор</span>
+                <span class="profile-label">Имя и Фамилия</span>
+                <span class="profile-val" id="profileName">Загрузка...</span>
             </div>
             <div class="profile-row">
                 <span class="profile-label">Должность</span>
-                <span class="profile-val" id="profilePos">Разработчик</span>
+                <span class="profile-val" id="profilePos">Не указана</span>
             </div>
             <div class="profile-row">
                 <span class="profile-label">Дата рождения</span>
-                <span class="profile-val" id="profileBirth">15.04.1995</span>
+                <span class="profile-val" id="profileBirth">Не указана</span>
             </div>
         </div>
 
@@ -365,7 +325,6 @@
             </div>
         </div>
 
-        <!-- КАРТОЧКА УВЕДОМЛЕНИЙ -->
         <div class="notice-card">
             <div class="notice-title">🔔 УВЕДОМЛЕНИЯ ПО БУДНЯМ (ПН–ПТ)</div>
             <div class="notice-item">• <b>За 30 мин до смены:</b> «Доброе утро! До смены 30 мин ☕»</div>
@@ -384,13 +343,10 @@
         </div>
     </div>
 
-    <!-- 3. ВКЛАДКА: АДМИН-ПАНЕЛЬ (РУКОВОДСТВО) -->
+    <!-- 3. ВКЛАДКА: АДМИНКА -->
     <div class="tab-content" id="tab-admin">
         <div class="card">
             <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--accent-loft);">👑 ПАНЕЛЬ РУКОВОДИТЕЛЯ</h3>
-            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
-                Быстрый мониторинг рабочего процесса компании RigFort:
-            </p>
             <button class="btn-loft-outline" style="width: 100%; margin-bottom: 8px;" onclick="showAdminOnline()">👥 Кто на смене прямо сейчас</button>
             <button class="btn-loft-outline" style="width: 100%;" onclick="showAdminSummary()">📋 Сводка и табель команды за день</button>
         </div>
@@ -401,7 +357,7 @@
         </div>
     </div>
 
-    <!-- ТАБ-БАР (СЕКУНДОМЕР ВМЕСТО ДОМИКА) -->
+    <!-- ТАБ-БАР -->
     <div class="tabbar">
         <button class="tab-item active" id="navShift" onclick="switchTab('tab-shift')">
             <span>⏱</span>Смена
@@ -421,49 +377,62 @@
             tg.expand();
         }
 
-        // ================= СОСТОЯНИЕ В ПАМЯТИ =================
+        // 1. АВТОМАТИЧЕСКИ БЕРЁМ РЕАЛЬНОЕ ИМЯ И ФАМИЛИЮ ИЗ TELEGRAM!
+        const tgUser = tg?.initDataUnsafe?.user;
+        let realName = "";
+        if (tgUser) {
+            realName = (tgUser.first_name || "") + (tgUser.last_name ? " " + tgUser.last_name : "");
+        }
+        if (!realName.trim()) realName = "Сотрудник";
+
+        // Загружаем сохранённые данные из памяти устройства
+        let userName = localStorage.getItem('rf_name') || realName;
+        let userPos = localStorage.getItem('rf_pos') || 'Специалист';
+        let userBirth = localStorage.getItem('rf_birth') || 'Не указана';
+
         let isWorking = localStorage.getItem('rf_is_working') === 'true';
         let shiftStartTime = parseInt(localStorage.getItem('rf_shift_start') || '0');
+        let shiftStartFormatted = localStorage.getItem('rf_start_formatted') || '';
         let currentSchedule = localStorage.getItem('rf_schedule') || '8-17';
         let monthSeconds = parseInt(localStorage.getItem('rf_month_seconds') || '0');
+        let shiftHistory = JSON.parse(localStorage.getItem('rf_history') || '[]');
         let timerInterval = null;
 
-        // ПРОВЕРКА БАГА «ВЕЧНОЙ СМЕНЫ» ПРИ ЗАПУСКЕ!
-        checkStaleShift();
-
+        // Инициализация интерфейса профиля
+        updateProfileUI();
         updateScheduleUI();
         updateMonthUI();
 
+        // Запуск или остановка таймера смены
         if (isWorking && shiftStartTime > 0) {
             startTimerUI();
         } else {
             stopTimerUI();
         }
 
-        // ================= АЛГОРИТМ ЗАЩИТЫ ОТ ЗАБЫТЫХ СМЕН =================
-        function checkStaleShift() {
-            if (!isWorking || !shiftStartTime) return;
+        function updateProfileUI() {
+            document.getElementById('profileName').innerText = userName;
+            document.getElementById('profilePos').innerText = userPos;
+            document.getElementById('profileBirth').innerText = userBirth;
+        }
 
-            const now = Date.now();
-            const elapsedHours = (now - shiftStartTime) / (1000 * 3600);
-            const startDate = new Date(shiftStartTime);
-            const today = new Date();
-
-            // Если смена длится более 12 часов ИЛИ была начата во вчерашний календарный день:
-            if (elapsedHours >= 12 || startDate.getDate() !== today.getDate()) {
-                const plannedH = (currentSchedule === '7-15') ? 8 : 9;
-                const cappedSeconds = plannedH * 3600;
-
-                monthSeconds += cappedSeconds;
-                localStorage.setItem('rf_month_seconds', monthSeconds.toString());
-
-                isWorking = false;
-                shiftStartTime = 0;
-                localStorage.setItem('rf_is_working', 'false');
-                localStorage.removeItem('rf_shift_start');
-
-                alert(`⚠️ Внимание!\nВы не закрыли смену вовремя.\nСистема автоматически зафиксировала рабочий день по вашему нормативу (${plannedH} ч.) и сохранила часы.`);
+        function editProfile() {
+            const newName = prompt("Введите ваше Имя и Фамилию:", userName);
+            if (newName && newName.trim()) {
+                userName = newName.trim();
+                localStorage.setItem('rf_name', userName);
             }
+            const newPos = prompt("Укажите вашу должность в RigFort:", userPos);
+            if (newPos && newPos.trim()) {
+                userPos = newPos.trim();
+                localStorage.setItem('rf_pos', userPos);
+            }
+            const newBirth = prompt("Укажите дату рождения (ДД.ММ.ГГГГ):", userBirth);
+            if (newBirth && newBirth.trim()) {
+                userBirth = newBirth.trim();
+                localStorage.setItem('rf_birth', userBirth);
+            }
+            updateProfileUI();
         }
 
         // ================= СТАРТ / СТОП СМЕНЫ =================
@@ -473,25 +442,44 @@
             if (!isWorking) {
                 isWorking = true;
                 shiftStartTime = Date.now();
+                shiftStartFormatted = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
                 localStorage.setItem('rf_is_working', 'true');
                 localStorage.setItem('rf_shift_start', shiftStartTime.toString());
+                localStorage.setItem('rf_start_formatted', shiftStartFormatted);
+
                 startTimerUI();
             } else {
-                const elapsedSecs = Math.floor((Date.now() - shiftStartTime) / 1000);
+                const now = new Date();
+                const shiftEndFormatted = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                const elapsedSecs = Math.floor((now.getTime() - shiftStartTime) / 1000);
+
                 monthSeconds += elapsedSecs;
                 localStorage.setItem('rf_month_seconds', monthSeconds.toString());
+
+                const h = Math.floor(elapsedSecs / 3600);
+                const m = Math.floor((elapsedSecs % 3600) / 60);
+                const durStr = `${h} ч. ${m} мин.`;
+
+                // Сохраняем завершённую смену с точным временем входа и выхода!
+                shiftHistory.push({
+                    date: now.toLocaleDateString(),
+                    start: shiftStartFormatted,
+                    end: shiftEndFormatted,
+                    duration: durStr
+                });
+                localStorage.setItem('rf_history', JSON.stringify(shiftHistory));
 
                 isWorking = false;
                 shiftStartTime = 0;
                 localStorage.setItem('rf_is_working', 'false');
                 localStorage.removeItem('rf_shift_start');
+                localStorage.removeItem('rf_start_formatted');
 
                 stopTimerUI();
                 updateMonthUI();
 
-                const h = Math.floor(elapsedSecs / 3600);
-                const m = Math.floor((elapsedSecs % 3600) / 60);
-                alert(`🔴 Смена успешно завершена!\n⏱ Отработано сегодня: ${h} ч. ${m} мин.`);
+                alert(`🔴 Смена завершена!\nВышел: в ${shiftStartFormatted}\nУшёл: в ${shiftEndFormatted}\n⏱ Отработано: ${durStr}`);
             }
         }
 
@@ -500,10 +488,9 @@
             btn.className = 'btn btn-red-glow';
             btn.innerText = '🔴 Завершить смену';
 
-            const dot = document.getElementById('statusDot');
-            dot.className = 'status-dot active'; // Загорается GREEN LIGHT!
-
+            document.getElementById('statusDot').className = 'status-dot active';
             document.getElementById('statusText').innerText = 'На смене (в работе)';
+            document.getElementById('startMeta').innerText = 'Старт: ' + shiftStartFormatted;
 
             clearInterval(timerInterval);
             timerInterval = setInterval(tick, 1000);
@@ -513,26 +500,21 @@
         function stopTimerUI() {
             clearInterval(timerInterval);
             const btn = document.getElementById('shiftActionBtn');
-            btn.className = 'btn btn-green-glow'; // Мягкий изумрудный глоу
+            btn.className = 'btn btn-green-glow';
             btn.innerText = '🟢 Начать смену';
 
-            const dot = document.getElementById('statusDot');
-            dot.className = 'status-dot';
-
+            document.getElementById('statusDot').className = 'status-dot';
             document.getElementById('statusText').innerText = 'Не на смене (отдых)';
             document.getElementById('timerDisplay').innerText = '00:00:00';
             document.getElementById('progressBar').style.width = '0%';
             document.getElementById('percentLabel').innerText = '0%';
+            document.getElementById('startMeta').innerText = 'Старт: ' + (currentSchedule === '7-15' ? '07:00' : '08:00');
         }
 
         function tick() {
             if (!shiftStartTime) return;
-
-            // Проверяем, не перевалила ли смена за лимит прямо во время работы
-            checkStaleShift();
-            if (!isWorking) return;
-
             const elapsed = Math.floor((Date.now() - shiftStartTime) / 1000);
+
             const h = String(Math.floor(elapsed / 3600)).padStart(2, '0');
             const m = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
             const s = String(elapsed % 60).padStart(2, '0');
@@ -555,8 +537,6 @@
         function updateScheduleUI() {
             document.getElementById('btnSched7').className = 'sched-btn ' + (currentSchedule === '7-15' ? 'selected' : '');
             document.getElementById('btnSched8').className = 'sched-btn ' + (currentSchedule === '8-17' ? 'selected' : '');
-
-            document.getElementById('startMeta').innerText = 'Старт: ' + (currentSchedule === '7-15' ? '07:00' : '08:00');
             document.getElementById('endMeta').innerText = 'Конец: ' + (currentSchedule === '7-15' ? '15:00' : '17:00');
         }
 
@@ -575,7 +555,7 @@
             document.getElementById('profileMonth').innerText = `${h} ч. ${m} мин.`;
         }
 
-        // ================= АДМИН-ФУНКЦИИ =================
+        // ================= АДМИН-ПАНЕЛЬ (РЕАЛЬНОЕ ВРЕМЯ ВЫХОДА И УХОДА) =================
         function showAdminOnline() {
             if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
             document.getElementById('adminOutputCard').style.display = 'block';
@@ -583,38 +563,46 @@
 
             if (isWorking) {
                 document.getElementById('adminOutputBody').innerHTML =
-                    `• 🟢 <b>Иванов Никифор</b> (Разработчик) — на смене с ${new Date(shiftStartTime).toLocaleTimeString().substring(0,5)}<br>` +
-                    `• 🟢 <b>Смирнов Алексей</b> (Техподдержка) — на смене с 08:00`;
+                    `🟢 <b>${userName}</b> (${userPos})<br>` +
+                    `• Вышел на смену: в <b>${shiftStartFormatted}</b><br>` +
+                    `• График: ${currentSchedule === '7-15' ? '07:00–15:00' : '08:00–17:00'}`;
             } else {
                 document.getElementById('adminOutputBody').innerHTML =
-                    `• 🟢 <b>Смирнов Алексей</b> (Техподдержка) — на смене с 08:00<br>` +
-                    `<i>(Вы сейчас не на смене)</i>`;
+                    `<i>Сейчас на смене никого нет.</i><br>` +
+                    `⚪ <b>${userName}</b> — не на смене (отдых)`;
             }
         }
 
         function showAdminSummary() {
             if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
             document.getElementById('adminOutputCard').style.display = 'block';
-            document.getElementById('adminOutputTitle').innerText = '📋 Сводка за сегодня:';
+            document.getElementById('adminOutputTitle').innerText = '📋 Сводка и табель команды за день:';
 
-            const todayStr = new Date().toLocaleDateString();
-            document.getElementById('adminOutputBody').innerHTML =
-                `📅 Дата: <b>${todayStr}</b><br>` +
-                `🏁 Активных сотрудников: <b>2</b><br>` +
-                `⏱ Всего часов: <b>16 ч. 30 мин.</b><br><br>` +
-                `• <b>Смирнов А.</b>: 8 ч. 30 мин. [08:00–16:30]<br>` +
-                `• <b>Иванов Н.</b>: ` + (isWorking ? `<i>(Смена ещё открыта)</i>` : `${Math.floor(monthSeconds/3600)} ч. [Завершена]`);
+            let output = `<b>Сотрудник:</b> ${userName}<br>`;
+
+            if (isWorking) {
+                output += `🟢 <b>Сейчас на смене!</b><br>• Вышел на смену в: <b>${shiftStartFormatted}</b><br><br>`;
+            }
+
+            if (shiftHistory.length > 0) {
+                output += `<b>Завершённые смены:</b><br>`;
+                shiftHistory.forEach((s, idx) => {
+                    output += `• Смена #${idx+1}: Вышел в <b>${s.start}</b>, ушёл в <b>${s.end}</b> | Отработано: <b>${s.duration}</b><br>`;
+                });
+            } else if (!isWorking) {
+                output += `<i>За сегодня ещё нет завершённых смен.</i>`;
+            }
+
+            document.getElementById('adminOutputBody').innerHTML = output;
         }
 
         // ================= НАВИГАЦИЯ =================
         function switchTab(tabId) {
             if (tg?.HapticFeedback) tg.HapticFeedback.selectionChanged();
-
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-item').forEach(b => b.classList.remove('active'));
 
             document.getElementById(tabId).classList.add('active');
-
             if (tabId === 'tab-shift') document.getElementById('navShift').classList.add('active');
             if (tabId === 'tab-profile') document.getElementById('navProfile').classList.add('active');
             if (tabId === 'tab-admin') document.getElementById('navAdmin').classList.add('active');

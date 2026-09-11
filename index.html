@@ -297,15 +297,20 @@
         }
 
         .pencil-btn {
-            background: var(--card-sub-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 5px 8px;
+            background: transparent;           /* Полностью убираем фон */
+            border: none;                      /* Убираем рамку вокруг */
+            padding: 2px 4px;                  /* Минимальный отступ для нажатия */
             font-size: 13px;
             cursor: pointer;
             flex-shrink: 0;
             line-height: 1;
-            transition: all 0.2s;
+            opacity: 0.75;                     /* Деликатная полупрозрачность в стиле лофт */
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        .pencil-btn:active {
+            opacity: 1;
+            transform: scale(0.85);            /* Приятный микро-клик при нажатии пальцем */
         }
 
         .pencil-btn:active {
@@ -556,7 +561,7 @@
                 <span class="profile-label-inline">Имя и фамилия</span>
                 <div class="profile-right-inline">
                     <span class="profile-val-inline" id="profileName">Сотрудник</span>
-                    <button class="pencil-btn" onclick="editSingleField('name')">✏️</button>
+                    <button class="pencil-btn" onclick="editSingleField('name')">⋮</button>
                 </div>
             </div>
 
@@ -564,7 +569,7 @@
                 <span class="profile-label-inline">Должность</span>
                 <div class="profile-right-inline">
                     <span class="profile-val-inline" id="profilePos">Специалист</span>
-                    <button class="pencil-btn" onclick="editSingleField('pos')">✏️</button>
+                    <button class="pencil-btn" onclick="editSingleField('pos')">⋮</button>
                 </div>
             </div>
 
@@ -572,7 +577,7 @@
                 <span class="profile-label-inline">Дата рождения</span>
                 <div class="profile-right-inline">
                     <span class="profile-val-inline" id="profileBirth">Не указана</span>
-                    <button class="pencil-btn" onclick="editSingleField('birth')">✏️</button>
+                    <button class="pencil-btn" onclick="editSingleField('birth')">⋮</button>
                 </div>
             </div>
         </div>

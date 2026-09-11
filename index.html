@@ -184,7 +184,7 @@
             color: var(--text-muted);
         }
 
-        /* ГЛАВНАЯ КНОПКА */
+        /* КНОПКИ */
         .btn {
             width: 100%;
             padding: 16px;
@@ -240,14 +240,8 @@
             font-size: 13px;
         }
 
-        .activity-label {
-            color: var(--text-muted);
-        }
-
-        .activity-val {
-            font-weight: 600;
-            color: var(--text-main);
-        }
+        .activity-label { color: var(--text-muted); }
+        .activity-val { font-weight: 600; color: var(--text-main); }
 
         .activity-note {
             font-size: 11px;
@@ -260,7 +254,7 @@
             gap: 5px;
         }
 
-        /* ПРОФИЛЬ В ОДНУ СТРОКУ БЕЗ ПЕРЕНОСОВ */
+        /* ПРОФИЛЬ В ОДНУ СТРОКУ */
         .profile-row-inline {
             display: flex;
             justify-content: space-between;
@@ -296,28 +290,27 @@
             white-space: nowrap;
         }
 
+        /* ИДЕАЛЬНАЯ ВЕКТОРНАЯ КНОПКА КАРАНДАША БЕЗ РАМОК */
         .pencil-btn {
-            background: transparent;           /* Полностью убираем фон */
-            border: none;                      /* Убираем рамку вокруг */
-            padding: 2px 4px;                  /* Минимальный отступ для нажатия */
-            font-size: 13px;
+            background: transparent;
+            border: none;
+            padding: 4px;
+            color: var(--text-muted);
             cursor: pointer;
             flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             line-height: 1;
-            opacity: 0.75;                     /* Деликатная полупрозрачность в стиле лофт */
-            transition: opacity 0.2s, transform 0.1s;
+            transition: color 0.2s ease, transform 0.1s ease;
         }
 
         .pencil-btn:active {
-            opacity: 1;
-            transform: scale(0.85);            /* Приятный микро-клик при нажатии пальцем */
+            color: var(--accent-loft);
+            transform: scale(0.88);
         }
 
-        .pencil-btn:active {
-            background: rgba(217, 119, 54, 0.2);
-        }
-
-        /* БЛОК УВЕДОМЛЕНИЙ */
+        /* УВЕДОМЛЕНИЯ */
         .notice-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -360,11 +353,7 @@
             flex-shrink: 0;
         }
 
-        .ios-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
+        .ios-switch input { opacity: 0; width: 0; height: 0; }
 
         .slider {
             position: absolute;
@@ -406,9 +395,7 @@
             margin-bottom: 6px;
         }
 
-        .notice-item-human:last-child {
-            margin-bottom: 0;
-        }
+        .notice-item-human:last-child { margin-bottom: 0; }
 
         .sched-grid {
             display: grid;
@@ -464,13 +451,8 @@
             padding: 4px 12px;
         }
 
-        .tab-item.active {
-            color: var(--accent-loft);
-        }
-
-        .tab-item span {
-            font-size: 21px;
-        }
+        .tab-item.active { color: var(--accent-loft); }
+        .tab-item span { font-size: 21px; }
     </style>
 </head>
 <body>
@@ -480,13 +462,12 @@
             <h1>RIGFORT</h1>
             <div class="badge-loft">WORKSPACE</div>
         </div>
-        <span style="font-size: 11px; color: var(--text-muted);">LOFT v2.6</span>
+        <span style="font-size: 11px; color: var(--text-muted);">LOFT v2.7</span>
     </div>
 
     <!-- 1. ВКЛАДКА: СМЕНА -->
     <div class="tab-content active" id="tab-shift">
 
-        <!-- ТРЕКЕР НЕДЕЛИ -->
         <div class="week-tracker">
             <div class="day-chip" id="day-1"><span>ПН</span><span class="day-dot"></span></div>
             <div class="day-chip" id="day-2"><span>ВТ</span><span class="day-dot"></span></div>
@@ -495,7 +476,6 @@
             <div class="day-chip" id="day-5"><span>ПТ</span><span class="day-dot"></span></div>
         </div>
 
-        <!-- КАРТОЧКА ТАЙМЕРА -->
         <div class="card timer-card">
             <div class="status-pill">
                 <span class="status-dot" id="statusDot"></span>
@@ -515,12 +495,10 @@
             </div>
         </div>
 
-        <!-- ГЛАВНАЯ КНОПКА ДЕЙСТВИЯ -->
         <button class="btn btn-green-glow" id="shiftActionBtn" onclick="toggleShift()">
             🟢 Начать смену
         </button>
 
-        <!-- НОВЫЙ БЛОК ПОД КНОПКОЙ: АКТИВНОСТЬ ЗА СЕГОДНЯ -->
         <div class="activity-card">
             <div class="activity-header">
                 <span>Сегодняшняя смена</span>
@@ -553,36 +531,49 @@
     <!-- 2. ВКЛАДКА: ПРОФИЛЬ -->
     <div class="tab-content" id="tab-profile">
 
-        <!-- ДАННЫЕ В ОДНУ СТРОКУ И ТОЛЬКО КАРАНДАШ -->
         <div class="card">
             <h3 style="font-size: 11px; margin-bottom: 6px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px;">ДАННЫЕ СОТРУДНИКА</h3>
 
+            <!-- ИМЯ И ФАМИЛИЯ -->
             <div class="profile-row-inline">
                 <span class="profile-label-inline">Имя и фамилия</span>
                 <div class="profile-right-inline">
                     <span class="profile-val-inline" id="profileName">Сотрудник</span>
-                    <button class="pencil-btn" onclick="editSingleField('name')">⋮</button>
+                    <button class="pencil-btn" onclick="editSingleField('name')" title="Редактировать">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                        </svg>
+                    </button>
                 </div>
             </div>
 
+            <!-- ДОЛЖНОСТЬ -->
             <div class="profile-row-inline">
                 <span class="profile-label-inline">Должность</span>
                 <div class="profile-right-inline">
                     <span class="profile-val-inline" id="profilePos">Специалист</span>
-                    <button class="pencil-btn" onclick="editSingleField('pos')">⋮</button>
+                    <button class="pencil-btn" onclick="editSingleField('pos')" title="Редактировать">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                        </svg>
+                    </button>
                 </div>
             </div>
 
+            <!-- ДАТА РОЖДЕНИЯ -->
             <div class="profile-row-inline">
                 <span class="profile-label-inline">Дата рождения</span>
                 <div class="profile-right-inline">
                     <span class="profile-val-inline" id="profileBirth">Не указана</span>
-                    <button class="pencil-btn" onclick="editSingleField('birth')">⋮</button>
+                    <button class="pencil-btn" onclick="editSingleField('birth')" title="Редактировать">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- ГРАФИК -->
         <div class="card">
             <h3 style="font-size: 11px; margin-bottom: 6px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px;">РЕЖИМ ГРАФИКА</h3>
             <div class="sched-grid">
@@ -591,7 +582,6 @@
             </div>
         </div>
 
-        <!-- ЧЕЛОВЕЧЕСКИЙ БЛОК УВЕДОМЛЕНИЙ -->
         <div class="notice-card">
             <div class="notice-header-row">
                 <div class="notice-title-box">
@@ -610,7 +600,6 @@
             <div class="notice-item-human">• В пятницу вечером — подведение итогов и пожелание выходных</div>
         </div>
 
-        <!-- СТАТИСТИКА -->
         <div class="card">
             <h3 style="font-size: 11px; margin-bottom: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px;">СТАТИСТИКА ЧАСОВ</h3>
             <div style="display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0;">
@@ -635,7 +624,7 @@
         </div>
     </div>
 
-    <!-- ВЫТЯНУТЫЙ ТАБ-БАР -->
+    <!-- ТАБ-БАР -->
     <div class="tabbar">
         <button class="tab-item active" id="navShift" onclick="switchTab('tab-shift')">
             <span>⏱</span>Смена
@@ -655,7 +644,6 @@
             tg.expand();
         }
 
-        // ================= ПОЛУЧЕНИЕ ИМЕНИ =================
         const tgUser = tg?.initDataUnsafe?.user;
         let defaultName = "Сотрудник";
         if (tgUser) {
@@ -674,7 +662,6 @@
         let shiftHistory = JSON.parse(localStorage.getItem('rf_history') || '[]');
         let timerInterval = null;
 
-        // Инициализация
         checkStaleShift();
         updateProfileUI();
         updateScheduleUI();
@@ -689,7 +676,6 @@
             stopTimerUI();
         }
 
-        // ================= ПРОФИЛЬ =================
         function updateProfileUI() {
             document.getElementById('profileName').innerText = userName;
             document.getElementById('profilePos').innerText = userPos;
@@ -721,7 +707,6 @@
             updateProfileUI();
         }
 
-        // ================= УВЕДОМЛЕНИЯ =================
         function initNotifsUI() {
             const isEnabled = localStorage.getItem('rf_notifs') !== 'false';
             document.getElementById('notifToggle').checked = isEnabled;
@@ -751,7 +736,6 @@
             alert(alertMsg);
         }
 
-        // ================= КАРТОЧКА СЕГОДНЯШНЕЙ АКТИВНОСТИ ПОД КНОПКОЙ =================
         function updateTodayCard() {
             const now = new Date();
             const dateStr = now.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
@@ -763,7 +747,6 @@
             if (isWorking) {
                 document.getElementById('todayStatusVal').innerHTML = `<span style="color: var(--green-glow);">🟢 На смене (с ${shiftStartFormatted})</span>`;
             } else {
-                // Проверяем, была ли завершена смена сегодня
                 const todayLocale = now.toLocaleDateString();
                 const todayShifts = shiftHistory.filter(s => s.date === todayLocale);
 
@@ -778,16 +761,14 @@
             }
         }
 
-        // ================= ТРЕКЕР НЕДЕЛИ =================
         function initWeekTracker() {
-            const dayOfWeek = new Date().getDay(); // 0 - Вс, 1 - Пн ... 5 - Пт
+            const dayOfWeek = new Date().getDay();
             if (dayOfWeek >= 1 && dayOfWeek <= 5) {
                 const chip = document.getElementById(`day-${dayOfWeek}`);
                 if (chip) chip.classList.add('active-today');
             }
         }
 
-        // ================= ПРОВЕРКА ЗАБЫТОЙ СМЕНЫ =================
         function checkStaleShift() {
             if (!isWorking || !shiftStartTime) return;
 
@@ -812,7 +793,6 @@
             }
         }
 
-        // ================= СТАРТ / СТОП =================
         function toggleShift() {
             if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('heavy');
 
@@ -865,7 +845,9 @@
             btn.className = 'btn btn-red-glow';
             btn.innerText = '🔴 Завершить смену';
 
-            document.getElementById('statusDot').className = 'status-dot active';
+            const dot = document.getElementById('statusDot');
+            dot.className = 'status-dot active';
+
             document.getElementById('statusText').innerText = 'На смене (в работе)';
             document.getElementById('startMeta').innerText = 'Старт: ' + shiftStartFormatted;
 
@@ -880,7 +862,9 @@
             btn.className = 'btn btn-green-glow';
             btn.innerText = '🟢 Начать смену';
 
-            document.getElementById('statusDot').className = 'status-dot';
+            const dot = document.getElementById('statusDot');
+            dot.className = 'status-dot';
+
             document.getElementById('statusText').innerText = 'Не на смене (отдых)';
             document.getElementById('timerDisplay').innerText = '00:00:00';
             document.getElementById('progressBar').style.width = '0%';
@@ -904,11 +888,9 @@
             document.getElementById('progressBar').style.width = percent + '%';
             document.getElementById('percentLabel').innerText = percent + '%';
 
-            // Обновляем карточку под кнопкой
             document.getElementById('todayTimeVal').innerText = `${Math.floor(elapsed / 3600)} ч. ${Math.floor((elapsed % 3600) / 60)} мин.`;
         }
 
-        // ================= ГРАФИК И СТАТИСТИКА =================
         function setSchedule(sched) {
             if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
             currentSchedule = sched;
@@ -938,7 +920,6 @@
             document.getElementById('profileMonth').innerText = `${h} ч. ${m} мин.`;
         }
 
-        // ================= АДМИНКА =================
         function showAdminOnline() {
             if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
             document.getElementById('adminOutputCard').style.display = 'block';
@@ -979,7 +960,6 @@
             document.getElementById('adminOutputBody').innerHTML = output;
         }
 
-        // ================= ТАБЫ =================
         function switchTab(tabId) {
             if (tg?.HapticFeedback) tg.HapticFeedback.selectionChanged();
 

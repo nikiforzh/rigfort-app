@@ -8,14 +8,21 @@
 
     <style>
         :root {
-            --bg-color: var(--tg-theme-bg-color, #0f1115);
-            --card-bg: var(--tg-theme-secondary-bg-color, #1a1d24);
-            --text-color: var(--tg-theme-text-color, #ffffff);
-            --hint-color: var(--tg-theme-hint-color, #8b92a0);
-            --accent-green: #2ecc71;
-            --accent-red: #e74c3c;
-            --accent-blue: #3498db;
-            --border-color: rgba(255, 255, 255, 0.07);
+            /* ТЁПЛАЯ ПАЛИТРА СОВРЕМЕННОГО ЛОФТА */
+            --bg-color: #181513;                /* Глубокий тёплый кофейно-каменный тон */
+            --card-bg: #231f1c;                  /* Тёплый матовый кирпичный сланец */
+            --card-sub-bg: #1c1917;              /* Утопленные блоки */
+            --border-color: rgba(225, 205, 185, 0.08); /* Мягкая бронзово-песочная рамка */
+
+            --text-main: #f5f0eb;               /* Мягкий кремово-белый */
+            --text-muted: #9e9388;              /* Тёплый серый / пергамент */
+            --accent-loft: #d97736;             /* Медно-терракотовый акцент RigFort */
+
+            /* ЖИВОЙ ИЗУМРУДНЫЙ СВЕТ (GREEN LIGHT) */
+            --green-glow: #10b981;
+            --green-shadow: 0 0 24px rgba(16, 185, 129, 0.45);
+            --red-glow: #ef4444;
+            --red-shadow: 0 0 24px rgba(239, 68, 68, 0.45);
         }
 
         * {
@@ -28,7 +35,7 @@
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-color);
+            color: var(--text-main);
             padding: 16px 16px 85px 16px;
             display: flex;
             flex-direction: column;
@@ -36,32 +43,45 @@
             min-height: 100vh;
         }
 
+        /* ШАПКА В СТИЛЕ ЛОФТ */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-bottom: 2px;
+        }
+
+        .brand-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .header h1 {
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 800;
+            letter-spacing: 0.6px;
+            color: var(--text-main);
+        }
+
+        .badge-loft {
+            background: rgba(217, 119, 54, 0.15);
+            color: var(--accent-loft);
+            border: 1px solid rgba(217, 119, 54, 0.3);
+            padding: 3px 9px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 700;
             letter-spacing: 0.5px;
         }
 
-        .badge {
-            background: rgba(52, 152, 219, 0.15);
-            color: var(--accent-blue);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 700;
-        }
-
+        /* КАРТОЧКИ */
         .card {
             background-color: var(--card-bg);
             border-radius: 16px;
             padding: 16px;
             border: 1px solid var(--border-color);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
         }
 
         .tab-content {
@@ -74,101 +94,127 @@
             display: flex;
         }
 
-        .profile-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 14px;
-        }
-
-        .profile-row:last-child {
-            border-bottom: none;
-        }
-
-        .profile-label { color: var(--hint-color); }
-        .profile-val { font-weight: 600; text-align: right; }
-
+        /* ЭКРАН СМЕНЫ */
         .timer-card {
             text-align: center;
             padding: 24px 16px;
+            transition: all 0.3s ease;
         }
 
+        /* Индикатор статуса */
         .status-pill {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: rgba(255, 255, 255, 0.05);
+            gap: 7px;
+            background: var(--card-sub-bg);
             padding: 6px 14px;
             border-radius: 20px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             margin-bottom: 14px;
+            border: 1px solid var(--border-color);
         }
 
         .status-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background-color: var(--hint-color);
+            background-color: var(--text-muted);
+            transition: all 0.3s ease;
         }
 
+        /* ЭФФЕКТ GREEN LIGHT ПРИ АКТИВНОЙ СМЕНЕ */
         .status-dot.active {
-            background-color: var(--accent-green);
-            box-shadow: 0 0 10px var(--accent-green);
+            background-color: var(--green-glow);
+            box-shadow: 0 0 12px var(--green-glow);
         }
 
         .timer-val {
             font-size: 42px;
             font-weight: 800;
             font-variant-numeric: tabular-nums;
+            letter-spacing: 0.5px;
             margin-bottom: 12px;
+            color: var(--text-main);
         }
 
         .progress-box {
-            background: rgba(255, 255, 255, 0.08);
-            height: 8px;
+            background: var(--card-sub-bg);
+            height: 7px;
             border-radius: 4px;
             overflow: hidden;
-            margin-bottom: 6px;
+            margin-bottom: 7px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
 
         .progress-bar {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, #2ecc71, #3498db);
+            background: linear-gradient(90deg, #10b981, #d97736);
             transition: width 0.3s ease;
         }
 
         .progress-meta {
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
-            color: var(--hint-color);
+            font-size: 11px;
+            color: var(--text-muted);
         }
 
+        /* КНОПКИ УПРАВЛЕНИЯ */
         .btn {
             width: 100%;
             padding: 16px;
             border-radius: 14px;
             border: none;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.1s;
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
         }
 
-        .btn:active { transform: scale(0.98); }
-        .btn-green { background: linear-gradient(135deg, #2ecc71, #27ae60); color: #fff; }
-        .btn-red { background: linear-gradient(135deg, #e74c3c, #c0392b); color: #fff; }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            margin-top: 8px;
-            padding: 12px;
-            font-size: 14px;
+        .btn:active {
+            transform: scale(0.98);
         }
+
+        .btn-green-glow {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #ffffff;
+            box-shadow: var(--green-shadow);
+        }
+
+        .btn-red-glow {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #ffffff;
+            box-shadow: var(--red-shadow);
+        }
+
+        .btn-loft-outline {
+            background: var(--card-sub-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        /* ПРОФИЛЬ */
+        .profile-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 9px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 13px;
+        }
+
+        .profile-row:last-child {
+            border-bottom: none;
+        }
+
+        .profile-label { color: var(--text-muted); }
+        .profile-val { font-weight: 600; text-align: right; }
 
         .sched-grid {
             display: grid;
@@ -181,25 +227,51 @@
             padding: 12px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
-            background: rgba(255, 255, 255, 0.03);
-            color: var(--text-color);
-            font-size: 13px;
+            background: var(--card-sub-bg);
+            color: var(--text-main);
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
         }
 
         .sched-btn.selected {
-            border-color: var(--accent-blue);
-            background: rgba(52, 152, 219, 0.15);
-            color: var(--accent-blue);
+            border-color: var(--accent-loft);
+            background: rgba(217, 119, 54, 0.15);
+            color: var(--accent-loft);
         }
 
+        /* БЛОК УВЕДОМЛЕНИЙ */
+        .notice-card {
+            background: rgba(217, 119, 54, 0.05);
+            border: 1px solid rgba(217, 119, 54, 0.2);
+            padding: 14px;
+            border-radius: 14px;
+        }
+
+        .notice-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-loft);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .notice-item {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 3px;
+        }
+
+        /* ТАБ-БАР (НАВИГАЦИЯ С СЕКУНДОМЕРОМ ВМЕСТО ДОМИКА) */
         .tabbar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: var(--card-bg);
+            background: #1f1b18;
             border-top: 1px solid var(--border-color);
             display: flex;
             justify-content: space-around;
@@ -214,26 +286,36 @@
             gap: 3px;
             background: none;
             border: none;
-            color: var(--hint-color);
+            color: var(--text-muted);
             font-size: 11px;
             font-weight: 600;
             cursor: pointer;
+            transition: color 0.2s ease;
         }
 
-        .tab-item.active { color: var(--accent-blue); }
-        .tab-item span { font-size: 20px; }
+        .tab-item.active {
+            color: var(--accent-loft);
+        }
+
+        .tab-item span {
+            font-size: 19px;
+        }
     </style>
 </head>
 <body>
 
+    <!-- ШАПКА В СТИЛЕ ЛОФТ -->
     <div class="header">
-        <h1>🏢 RIGFORT</h1>
-        <div class="badge">WORKSPACE APP</div>
+        <div class="brand-title">
+            <h1>RIGFORT</h1>
+            <div class="badge-loft">WORKSPACE</div>
+        </div>
+        <span style="font-size: 11px; color: var(--text-muted);">LOFT ED.</span>
     </div>
 
-    <!-- 1. ВКЛАДКА: СМЕНА -->
+    <!-- 1. ВКЛАДКА: СМЕНА (СЕКУНДОМЕР) -->
     <div class="tab-content active" id="tab-shift">
-        <div class="card timer-card">
+        <div class="card timer-card" id="timerCard">
             <div class="status-pill">
                 <span class="status-dot" id="statusDot"></span>
                 <span id="statusText">Не на смене</span>
@@ -252,7 +334,7 @@
             </div>
         </div>
 
-        <button class="btn btn-green" id="shiftActionBtn" onclick="toggleShift()">
+        <button class="btn btn-green-glow" id="shiftActionBtn" onclick="toggleShift()">
             🟢 Начать смену
         </button>
     </div>
@@ -260,7 +342,7 @@
     <!-- 2. ВКЛАДКА: ПРОФИЛЬ -->
     <div class="tab-content" id="tab-profile">
         <div class="card">
-            <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--hint-color);">СОТРУДНИК RIGFORT</h3>
+            <h3 style="font-size: 13px; margin-bottom: 10px; color: var(--text-muted); letter-spacing: 0.5px;">СОТРУДНИК RIGFORT</h3>
             <div class="profile-row">
                 <span class="profile-label">ФИО</span>
                 <span class="profile-val" id="profileFio">Иванов Никифор</span>
@@ -276,30 +358,59 @@
         </div>
 
         <div class="card">
-            <h3 style="font-size: 14px; margin-bottom: 6px; color: var(--hint-color);">СМЕНА ГРАФИКА</h3>
+            <h3 style="font-size: 13px; margin-bottom: 6px; color: var(--text-muted); letter-spacing: 0.5px;">СМЕНА ГРАФИКА</h3>
             <div class="sched-grid">
                 <button class="sched-btn" id="btnSched7" onclick="setSchedule('7-15')">⏰ 07:00 — 15:00</button>
                 <button class="sched-btn" id="btnSched8" onclick="setSchedule('8-17')">⏰ 08:00 — 17:00</button>
             </div>
         </div>
 
+        <!-- КАРТОЧКА УВЕДОМЛЕНИЙ -->
+        <div class="notice-card">
+            <div class="notice-title">🔔 УВЕДОМЛЕНИЯ ПО БУДНЯМ (ПН–ПТ)</div>
+            <div class="notice-item">• <b>За 30 мин до смены:</b> «Доброе утро! До смены 30 мин ☕»</div>
+            <div class="notice-item">• <b>В момент старта:</b> напоминание нажать кнопку старта</div>
+            <div class="notice-item">• <b>За 30 мин до финиша:</b> напоминание вовремя закрыть смену</div>
+            <div class="notice-item">• <b>В пятницу в конце дня:</b> пожелание отличных выходных 🎉</div>
+        </div>
+
         <div class="card">
-            <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--hint-color);">СТАТИСТИКА ЧАСОВ</h3>
+            <h3 style="font-size: 13px; margin-bottom: 10px; color: var(--text-muted); letter-spacing: 0.5px;">СТАТИСТИКА ЧАСОВ</h3>
             <div class="profile-row">
                 <span class="profile-label">Этот месяц</span>
                 <span class="profile-val" id="profileMonth">0 ч. 0 мин.</span>
             </div>
-            <button class="btn btn-outline" onclick="resetMonth()">🔄 Сбросить часы за месяц</button>
+            <button class="btn-loft-outline" style="width: 100%; margin-top: 8px;" onclick="resetMonth()">🔄 Сбросить часы за месяц</button>
         </div>
     </div>
 
-    <!-- НИЖНИЙ ТАБ-БАР -->
+    <!-- 3. ВКЛАДКА: АДМИН-ПАНЕЛЬ (РУКОВОДСТВО) -->
+    <div class="tab-content" id="tab-admin">
+        <div class="card">
+            <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--accent-loft);">👑 ПАНЕЛЬ РУКОВОДИТЕЛЯ</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+                Быстрый мониторинг рабочего процесса компании RigFort:
+            </p>
+            <button class="btn-loft-outline" style="width: 100%; margin-bottom: 8px;" onclick="showAdminOnline()">👥 Кто на смене прямо сейчас</button>
+            <button class="btn-loft-outline" style="width: 100%;" onclick="showAdminSummary()">📋 Сводка и табель команды за день</button>
+        </div>
+
+        <div class="card" id="adminOutputCard" style="display: none;">
+            <h4 style="font-size: 13px; margin-bottom: 8px; color: var(--accent-loft);" id="adminOutputTitle">Отчёт:</h4>
+            <div id="adminOutputBody" style="font-size: 12px; line-height: 1.6; color: var(--text-main);"></div>
+        </div>
+    </div>
+
+    <!-- ТАБ-БАР (СЕКУНДОМЕР ВМЕСТО ДОМИКА) -->
     <div class="tabbar">
         <button class="tab-item active" id="navShift" onclick="switchTab('tab-shift')">
-            <span>🏠</span>Смена
+            <span>⏱</span>Смена
         </button>
         <button class="tab-item" id="navProfile" onclick="switchTab('tab-profile')">
             <span>👤</span>Профиль
+        </button>
+        <button class="tab-item" id="navAdmin" onclick="switchTab('tab-admin')">
+            <span>👑</span>Управление
         </button>
     </div>
 
@@ -310,14 +421,16 @@
             tg.expand();
         }
 
-        // ================= СОСТОЯНИЕ В ПАМЯТИ ТЕЛЕФОНА =================
+        // ================= СОСТОЯНИЕ В ПАМЯТИ =================
         let isWorking = localStorage.getItem('rf_is_working') === 'true';
         let shiftStartTime = parseInt(localStorage.getItem('rf_shift_start') || '0');
         let currentSchedule = localStorage.getItem('rf_schedule') || '8-17';
         let monthSeconds = parseInt(localStorage.getItem('rf_month_seconds') || '0');
         let timerInterval = null;
 
-        // Инициализируем экран
+        // ПРОВЕРКА БАГА «ВЕЧНОЙ СМЕНЫ» ПРИ ЗАПУСКЕ!
+        checkStaleShift();
+
         updateScheduleUI();
         updateMonthUI();
 
@@ -327,20 +440,43 @@
             stopTimerUI();
         }
 
-        // ================= НАЖАТИЕ: СТАРТ / СТОП СМЕНЫ =================
+        // ================= АЛГОРИТМ ЗАЩИТЫ ОТ ЗАБЫТЫХ СМЕН =================
+        function checkStaleShift() {
+            if (!isWorking || !shiftStartTime) return;
+
+            const now = Date.now();
+            const elapsedHours = (now - shiftStartTime) / (1000 * 3600);
+            const startDate = new Date(shiftStartTime);
+            const today = new Date();
+
+            // Если смена длится более 12 часов ИЛИ была начата во вчерашний календарный день:
+            if (elapsedHours >= 12 || startDate.getDate() !== today.getDate()) {
+                const plannedH = (currentSchedule === '7-15') ? 8 : 9;
+                const cappedSeconds = plannedH * 3600;
+
+                monthSeconds += cappedSeconds;
+                localStorage.setItem('rf_month_seconds', monthSeconds.toString());
+
+                isWorking = false;
+                shiftStartTime = 0;
+                localStorage.setItem('rf_is_working', 'false');
+                localStorage.removeItem('rf_shift_start');
+
+                alert(`⚠️ Внимание!\nВы не закрыли смену вовремя.\nСистема автоматически зафиксировала рабочий день по вашему нормативу (${plannedH} ч.) и сохранила часы.`);
+            }
+        }
+
+        // ================= СТАРТ / СТОП СМЕНЫ =================
         function toggleShift() {
             if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('heavy');
 
             if (!isWorking) {
-                // НАЧИНАЕМ СМЕНУ (ОКНО НЕ ЗАКРЫВАЕТСЯ!)
                 isWorking = true;
                 shiftStartTime = Date.now();
                 localStorage.setItem('rf_is_working', 'true');
                 localStorage.setItem('rf_shift_start', shiftStartTime.toString());
-
                 startTimerUI();
             } else {
-                // ЗАВЕРШАЕМ СМЕНУ (ОКНО НЕ ЗАКРЫВАЕТСЯ!)
                 const elapsedSecs = Math.floor((Date.now() - shiftStartTime) / 1000);
                 monthSeconds += elapsedSecs;
                 localStorage.setItem('rf_month_seconds', monthSeconds.toString());
@@ -361,9 +497,12 @@
 
         function startTimerUI() {
             const btn = document.getElementById('shiftActionBtn');
-            btn.className = 'btn btn-red';
+            btn.className = 'btn btn-red-glow';
             btn.innerText = '🔴 Завершить смену';
-            document.getElementById('statusDot').className = 'status-dot active';
+
+            const dot = document.getElementById('statusDot');
+            dot.className = 'status-dot active'; // Загорается GREEN LIGHT!
+
             document.getElementById('statusText').innerText = 'На смене (в работе)';
 
             clearInterval(timerInterval);
@@ -374,9 +513,12 @@
         function stopTimerUI() {
             clearInterval(timerInterval);
             const btn = document.getElementById('shiftActionBtn');
-            btn.className = 'btn btn-green';
+            btn.className = 'btn btn-green-glow'; // Мягкий изумрудный глоу
             btn.innerText = '🟢 Начать смену';
-            document.getElementById('statusDot').className = 'status-dot';
+
+            const dot = document.getElementById('statusDot');
+            dot.className = 'status-dot';
+
             document.getElementById('statusText').innerText = 'Не на смене (отдых)';
             document.getElementById('timerDisplay').innerText = '00:00:00';
             document.getElementById('progressBar').style.width = '0%';
@@ -385,8 +527,12 @@
 
         function tick() {
             if (!shiftStartTime) return;
-            const elapsed = Math.floor((Date.now() - shiftStartTime) / 1000);
 
+            // Проверяем, не перевалила ли смена за лимит прямо во время работы
+            checkStaleShift();
+            if (!isWorking) return;
+
+            const elapsed = Math.floor((Date.now() - shiftStartTime) / 1000);
             const h = String(Math.floor(elapsed / 3600)).padStart(2, '0');
             const m = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
             const s = String(elapsed % 60).padStart(2, '0');
@@ -429,15 +575,49 @@
             document.getElementById('profileMonth').innerText = `${h} ч. ${m} мин.`;
         }
 
-        // ================= НАВИГАЦИЯ ПО ТАБАМ =================
+        // ================= АДМИН-ФУНКЦИИ =================
+        function showAdminOnline() {
+            if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+            document.getElementById('adminOutputCard').style.display = 'block';
+            document.getElementById('adminOutputTitle').innerText = '👥 Онлайн команды RigFort:';
+
+            if (isWorking) {
+                document.getElementById('adminOutputBody').innerHTML =
+                    `• 🟢 <b>Иванов Никифор</b> (Разработчик) — на смене с ${new Date(shiftStartTime).toLocaleTimeString().substring(0,5)}<br>` +
+                    `• 🟢 <b>Смирнов Алексей</b> (Техподдержка) — на смене с 08:00`;
+            } else {
+                document.getElementById('adminOutputBody').innerHTML =
+                    `• 🟢 <b>Смирнов Алексей</b> (Техподдержка) — на смене с 08:00<br>` +
+                    `<i>(Вы сейчас не на смене)</i>`;
+            }
+        }
+
+        function showAdminSummary() {
+            if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+            document.getElementById('adminOutputCard').style.display = 'block';
+            document.getElementById('adminOutputTitle').innerText = '📋 Сводка за сегодня:';
+
+            const todayStr = new Date().toLocaleDateString();
+            document.getElementById('adminOutputBody').innerHTML =
+                `📅 Дата: <b>${todayStr}</b><br>` +
+                `🏁 Активных сотрудников: <b>2</b><br>` +
+                `⏱ Всего часов: <b>16 ч. 30 мин.</b><br><br>` +
+                `• <b>Смирнов А.</b>: 8 ч. 30 мин. [08:00–16:30]<br>` +
+                `• <b>Иванов Н.</b>: ` + (isWorking ? `<i>(Смена ещё открыта)</i>` : `${Math.floor(monthSeconds/3600)} ч. [Завершена]`);
+        }
+
+        // ================= НАВИГАЦИЯ =================
         function switchTab(tabId) {
             if (tg?.HapticFeedback) tg.HapticFeedback.selectionChanged();
+
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-item').forEach(b => b.classList.remove('active'));
 
             document.getElementById(tabId).classList.add('active');
+
             if (tabId === 'tab-shift') document.getElementById('navShift').classList.add('active');
             if (tabId === 'tab-profile') document.getElementById('navProfile').classList.add('active');
+            if (tabId === 'tab-admin') document.getElementById('navAdmin').classList.add('active');
         }
     </script>
 </body>

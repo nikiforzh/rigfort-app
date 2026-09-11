@@ -11,7 +11,7 @@
             --bg-color: #181513;
             --card-bg: #231f1c;
             --card-sub-bg: #1c1917;
-            --border-color: rgba(225, 205, 185, 0.08);
+            --card-border: rgba(225, 205, 185, 0.08);
             --text-main: #f5f0eb;
             --text-muted: #9e9388;
             --accent-loft: #d97736;
@@ -32,17 +32,19 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            padding: 16px 16px 85px 16px;
+            padding: 16px 16px 95px 16px; /* Запас под увеличенный таб-бар */
             display: flex;
             flex-direction: column;
             gap: 14px;
             min-height: 100vh;
         }
 
+        /* ШАПКА */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-bottom: 2px;
         }
 
         .brand-title {
@@ -67,28 +69,96 @@
             font-weight: 700;
         }
 
+        /* КАРТОЧКИ */
         .card {
             background-color: var(--card-bg);
             border-radius: 16px;
             padding: 16px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
         }
 
         .tab-content {
             display: none;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
         }
 
         .tab-content.active {
             display: flex;
         }
 
+        /* СЕТКА ВИДЖЕТОВ НА ЭКРАНЕ СМЕНЫ */
+        .dash-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .dash-widget {
+            background: var(--card-sub-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .dash-widget-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .dash-widget-val {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* ТРЕКЕР ДНЕЙ НЕДЕЛИ */
+        .week-tracker {
+            display: flex;
+            justify-content: space-between;
+            background: var(--card-sub-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 10px 14px;
+        }
+
+        .day-chip {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .day-chip.active-today {
+            color: var(--accent-loft);
+            font-weight: 800;
+        }
+
+        .day-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--card-border);
+        }
+
+        .day-chip.active-today .day-dot {
+            background: var(--accent-loft);
+            box-shadow: 0 0 8px var(--accent-loft);
+        }
+
         /* ТАЙМЕР */
         .timer-card {
             text-align: center;
-            padding: 24px 16px;
+            padding: 22px 16px;
         }
 
         .status-pill {
@@ -100,8 +170,8 @@
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
-            margin-bottom: 14px;
-            border: 1px solid var(--border-color);
+            margin-bottom: 12px;
+            border: 1px solid var(--card-border);
         }
 
         .status-dot {
@@ -109,6 +179,7 @@
             height: 8px;
             border-radius: 50%;
             background-color: var(--text-muted);
+            transition: all 0.3s ease;
         }
 
         .status-dot.active {
@@ -120,7 +191,7 @@
             font-size: 42px;
             font-weight: 800;
             font-variant-numeric: tabular-nums;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .progress-box {
@@ -145,6 +216,7 @@
             color: var(--text-muted);
         }
 
+        /* КНОПКИ */
         .btn {
             width: 100%;
             padding: 16px;
@@ -162,7 +234,7 @@
 
         .btn-loft-outline {
             background: var(--card-sub-bg);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--card-border);
             color: var(--text-main);
             padding: 12px;
             font-size: 13px;
@@ -171,18 +243,120 @@
             cursor: pointer;
         }
 
-        /* ПРОФИЛЬ */
+        /* СТРОКИ ПРОФИЛЯ С КНОПКАМИ ИЗМЕНЕНИЯ НАПРОТИВ */
         .profile-row {
             display: flex;
             justify-content: space-between;
-            padding: 9px 0;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 13px;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--card-border);
         }
 
         .profile-row:last-child { border-bottom: none; }
-        .profile-label { color: var(--text-muted); }
-        .profile-val { font-weight: 600; text-align: right; }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .profile-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-val {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .edit-icon-btn {
+            background: var(--card-sub-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            border-radius: 8px;
+            padding: 5px 9px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .edit-icon-btn:active {
+            background: rgba(217, 119, 54, 0.2);
+            color: var(--accent-loft);
+        }
+
+        /* СТИЛЬНЫЙ IOS TOGGLE SWITCH */
+        .notice-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .ios-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .ios-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--card-sub-bg);
+            border: 1px solid var(--card-border);
+            transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 2px;
+            bottom: 2px;
+            background-color: var(--text-muted);
+            transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: rgba(217, 119, 54, 0.2);
+            border-color: var(--accent-loft);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+            background-color: var(--accent-loft);
+            box-shadow: 0 0 10px var(--accent-loft);
+        }
+
+        .notice-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 16px;
+            border-radius: 16px;
+        }
+
+        .notice-item {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 4px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+        }
 
         .sched-grid {
             display: grid;
@@ -194,7 +368,7 @@
         .sched-btn {
             padding: 12px;
             border-radius: 12px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--card-border);
             background: var(--card-sub-bg);
             color: var(--text-main);
             font-size: 12px;
@@ -208,70 +382,69 @@
             color: var(--accent-loft);
         }
 
-        .notice-card {
-            background: rgba(217, 119, 54, 0.05);
-            border: 1px solid rgba(217, 119, 54, 0.2);
-            padding: 14px;
-            border-radius: 14px;
-        }
-
-        .notice-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--accent-loft);
-            margin-bottom: 6px;
-        }
-
-        .notice-item {
-            font-size: 11px;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 3px;
-        }
-
-        /* ТАБ-БАР */
+        /* ВЫТЯНУТЫЙ ТАБ-БАР (БОЛЕЕ СОЛИДНЫЙ И ВЫСОКИЙ) */
         .tabbar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
             background: #1f1b18;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--card-border);
             display: flex;
             justify-content: space-around;
-            padding: 10px 16px;
+            padding: 12px 18px 24px 18px; /* Увеличена высота и зона нажатия */
             z-index: 100;
+            box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.35);
         }
 
         .tab-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3px;
+            gap: 4px;
             background: none;
             border: none;
             color: var(--text-muted);
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 4px 12px;
         }
 
-        .tab-item.active { color: var(--accent-loft); }
-        .tab-item span { font-size: 19px; }
+        .tab-item.active {
+            color: var(--accent-loft);
+        }
+
+        .tab-item span {
+            font-size: 21px; /* Чуть крупнее и выразительнее иконки */
+        }
     </style>
 </head>
 <body>
 
+    <!-- ШАПКА -->
     <div class="header">
         <div class="brand-title">
             <h1>RIGFORT</h1>
             <div class="badge-loft">WORKSPACE</div>
         </div>
-        <span style="font-size: 11px; color: var(--text-muted);">LOFT ED.</span>
+        <span style="font-size: 11px; color: var(--text-muted);">LOFT v2.5</span>
     </div>
 
-    <!-- 1. ВКЛАДКА: СМЕНА -->
+    <!-- 1. ВКЛАДКА: СМЕНА (СЕКУНДОМЕР И ДАШБОРД) -->
     <div class="tab-content active" id="tab-shift">
+
+        <!-- ТРЕКЕР РАБОЧЕЙ НЕДЕЛИ -->
+        <div class="week-tracker">
+            <div class="day-chip" id="day-1"><span>ПН</span><span class="day-dot"></span></div>
+            <div class="day-chip" id="day-2"><span>ВТ</span><span class="day-dot"></span></div>
+            <div class="day-chip" id="day-3"><span>СР</span><span class="day-dot"></span></div>
+            <div class="day-chip" id="day-4"><span>ЧТ</span><span class="day-dot"></span></div>
+            <div class="day-chip" id="day-5"><span>ПТ</span><span class="day-dot"></span></div>
+        </div>
+
+        <!-- КАРТОЧКА ТАЙМЕРА -->
         <div class="card timer-card">
             <div class="status-pill">
                 <span class="status-dot" id="statusDot"></span>
@@ -287,7 +460,19 @@
             <div class="progress-meta">
                 <span id="startMeta">Старт: 08:00</span>
                 <span id="percentLabel">0%</span>
-                <span id="endMeta">Конец: 17:00</span>
+                <span id="endMeta">Финиш: 17:00</span>
+            </div>
+        </div>
+
+        <!-- СЕТКА ИНФО-ВИДЖЕТОВ СМЕНЫ -->
+        <div class="dash-grid">
+            <div class="dash-widget">
+                <span class="dash-widget-label">План на смену</span>
+                <span class="dash-widget-val" id="widgetPlannedTime">9 ч. 00 мин.</span>
+            </div>
+            <div class="dash-widget" onclick="toggleWorkMode()" style="cursor: pointer;">
+                <span class="dash-widget-label">Формат работы ▾</span>
+                <span class="dash-widget-val" id="widgetWorkMode" style="color: var(--accent-loft);">🏠 Удалёнка</span>
             </div>
         </div>
 
@@ -298,66 +483,86 @@
 
     <!-- 2. ВКЛАДКА: ПРОФИЛЬ -->
     <div class="tab-content" id="tab-profile">
+
+        <!-- КАРТОЧКА СОТРУДНИКА С ОТДЕЛЬНЫМИ КНОПКАМИ ИЗМЕНЕНИЯ -->
         <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <h3 style="font-size: 13px; color: var(--text-muted); letter-spacing: 0.5px;">СОТРУДНИК RIGFORT</h3>
-                <span style="font-size: 12px; color: var(--accent-loft); cursor: pointer;" onclick="editProfile()">✏️ Изменить</span>
-            </div>
+            <h3 style="font-size: 11px; margin-bottom: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px;">УЧЁТНЫЕ ДАННЫЕ СОТРУДНИКА</h3>
+
             <div class="profile-row">
-                <span class="profile-label">Имя и Фамилия</span>
-                <span class="profile-val" id="profileName">Загрузка...</span>
+                <div class="profile-info">
+                    <span class="profile-label">Имя и фамилия</span>
+                    <span class="profile-val" id="profileName">Сотрудник</span>
+                </div>
+                <button class="edit-icon-btn" onclick="editSingleField('name')">✏️ Изменить</button>
             </div>
+
             <div class="profile-row">
-                <span class="profile-label">Должность</span>
-                <span class="profile-val" id="profilePos">Не указана</span>
+                <div class="profile-info">
+                    <span class="profile-label">Должность</span>
+                    <span class="profile-val" id="profilePos">Специалист</span>
+                </div>
+                <button class="edit-icon-btn" onclick="editSingleField('pos')">✏️ Изменить</button>
             </div>
+
             <div class="profile-row">
-                <span class="profile-label">Дата рождения</span>
-                <span class="profile-val" id="profileBirth">Не указана</span>
+                <div class="profile-info">
+                    <span class="profile-label">Дата рождения</span>
+                    <span class="profile-val" id="profileBirth">Не указана</span>
+                </div>
+                <button class="edit-icon-btn" onclick="editSingleField('birth')">✏️ Изменить</button>
             </div>
         </div>
 
+        <!-- ВЫБОР ГРАФИКА -->
         <div class="card">
-            <h3 style="font-size: 13px; margin-bottom: 6px; color: var(--text-muted); letter-spacing: 0.5px;">СМЕНА ГРАФИКА</h3>
+            <h3 style="font-size: 11px; margin-bottom: 6px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px;">РЕЖИМ РАБОЧЕГО ГРАФИКА</h3>
             <div class="sched-grid">
                 <button class="sched-btn" id="btnSched7" onclick="setSchedule('7-15')">⏰ 07:00 — 15:00</button>
                 <button class="sched-btn" id="btnSched8" onclick="setSchedule('8-17')">⏰ 08:00 — 17:00</button>
             </div>
         </div>
 
+        <!-- СТРОГИЙ БЛОК УВЕДОМЛЕНИЙ С IOS СВИЧЕМ -->
         <div class="notice-card">
-            <div class="notice-title">🔔 УВЕДОМЛЕНИЯ ПО БУДНЯМ (ПН–ПТ)</div>
-            <div class="notice-item">• <b>За 30 мин до смены:</b> «Доброе утро! До смены 30 мин ☕»</div>
-            <div class="notice-item">• <b>В момент старта:</b> напоминание нажать кнопку старта</div>
-            <div class="notice-item">• <b>За 30 мин до финиша:</b> напоминание вовремя закрыть смену</div>
-            <div class="notice-item">• <b>В пятницу в конце дня:</b> пожелание отличных выходных 🎉</div>
+            <div class="notice-header-row">
+                <span style="font-size: 12px; font-weight: 700; color: var(--accent-loft); letter-spacing: 0.5px;">КОНТУР ДИСПЕТЧЕРИЗАЦИИ И ОПОВЕЩЕНИЙ</span>
+                <label class="ios-switch">
+                    <input type="checkbox" id="notifToggle" onchange="toggleNotifications(this.checked)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="notice-item">[T-30 MIN] 06:30 / 07:30 :: Контрольный сигнал готовности к смене</div>
+            <div class="notice-item">[CHECKIN ] 07:00 / 08:00 :: Фиксация входа в рабочий слот</div>
+            <div class="notice-item">[T-30 MIN] 14:30 / 16:30 :: Регламент подготовки к закрытию смены</div>
+            <div class="notice-item">[WEEKEND ] Пятница 17:00 :: Фиксация недельного пула часов</div>
         </div>
 
+        <!-- СТАТИСТИКА -->
         <div class="card">
-            <h3 style="font-size: 13px; margin-bottom: 10px; color: var(--text-muted); letter-spacing: 0.5px;">СТАТИСТИКА ЧАСОВ</h3>
-            <div class="profile-row">
-                <span class="profile-label">Этот месяц</span>
-                <span class="profile-val" id="profileMonth">0 ч. 0 мин.</span>
+            <h3 style="font-size: 11px; margin-bottom: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px;">СТАТИСТИКА ЧАСОВ</h3>
+            <div style="display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0;">
+                <span style="color: var(--text-muted);">Пул текущего месяца</span>
+                <span style="font-weight: 700;" id="profileMonth">0 ч. 0 мин.</span>
             </div>
-            <button class="btn-loft-outline" style="width: 100%; margin-top: 8px;" onclick="resetMonth()">🔄 Сбросить часы за месяц</button>
+            <button class="btn-loft-outline" style="width: 100%; margin-top: 10px;" onclick="resetMonth()">🔄 Сбросить часы за месяц</button>
         </div>
     </div>
 
-    <!-- 3. ВКЛАДКА: АДМИНКА -->
+    <!-- 3. ВКЛАДКА: АДМИН-ПАНЕЛЬ -->
     <div class="tab-content" id="tab-admin">
         <div class="card">
-            <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--accent-loft);">👑 ПАНЕЛЬ РУКОВОДИТЕЛЯ</h3>
+            <h3 style="font-size: 13px; margin-bottom: 10px; color: var(--accent-loft); text-transform: uppercase; letter-spacing: 0.6px;">👑 ПАНЕЛЬ РУКОВОДИТЕЛЯ</h3>
             <button class="btn-loft-outline" style="width: 100%; margin-bottom: 8px;" onclick="showAdminOnline()">👥 Кто на смене прямо сейчас</button>
             <button class="btn-loft-outline" style="width: 100%;" onclick="showAdminSummary()">📋 Сводка и табель команды за день</button>
         </div>
 
         <div class="card" id="adminOutputCard" style="display: none;">
-            <h4 style="font-size: 13px; margin-bottom: 8px; color: var(--accent-loft);" id="adminOutputTitle">Отчёт:</h4>
+            <h4 style="font-size: 12px; margin-bottom: 8px; color: var(--accent-loft); text-transform: uppercase;" id="adminOutputTitle">Отчёт:</h4>
             <div id="adminOutputBody" style="font-size: 12px; line-height: 1.6; color: var(--text-main);"></div>
         </div>
     </div>
 
-    <!-- ТАБ-БАР -->
+    <!-- ВЫТЯНУТЫЙ ТАБ-БАР (СЕКУНДОМЕР ВМЕСТО ДОМИКА) -->
     <div class="tabbar">
         <button class="tab-item active" id="navShift" onclick="switchTab('tab-shift')">
             <span>⏱</span>Смена
@@ -377,16 +582,14 @@
             tg.expand();
         }
 
-        // 1. АВТОМАТИЧЕСКИ БЕРЁМ РЕАЛЬНОЕ ИМЯ И ФАМИЛИЮ ИЗ TELEGRAM!
+        // ================= ДАННЫЕ СОТРУДНИКА =================
         const tgUser = tg?.initDataUnsafe?.user;
-        let realName = "";
+        let defaultName = "Сотрудник";
         if (tgUser) {
-            realName = (tgUser.first_name || "") + (tgUser.last_name ? " " + tgUser.last_name : "");
+            defaultName = (tgUser.first_name || "") + (tgUser.last_name ? " " + tgUser.last_name : "");
         }
-        if (!realName.trim()) realName = "Сотрудник";
 
-        // Загружаем сохранённые данные из памяти устройства
-        let userName = localStorage.getItem('rf_name') || realName;
+        let userName = localStorage.getItem('rf_name') || defaultName.trim();
         let userPos = localStorage.getItem('rf_pos') || 'Специалист';
         let userBirth = localStorage.getItem('rf_birth') || 'Не указана';
 
@@ -396,43 +599,110 @@
         let currentSchedule = localStorage.getItem('rf_schedule') || '8-17';
         let monthSeconds = parseInt(localStorage.getItem('rf_month_seconds') || '0');
         let shiftHistory = JSON.parse(localStorage.getItem('rf_history') || '[]');
+        let workMode = localStorage.getItem('rf_work_mode') || '🏠 Удалёнка';
         let timerInterval = null;
 
-        // Инициализация интерфейса профиля
+        // ПРОВЕРКА «ВЕЧНОЙ СМЕНЫ»
+        checkStaleShift();
+
+        // Инициализация интерфейса
         updateProfileUI();
         updateScheduleUI();
         updateMonthUI();
+        initWeekTracker();
+        initNotifToggle();
 
-        // Запуск или остановка таймера смены
+        document.getElementById('widgetWorkMode').innerText = workMode;
+
         if (isWorking && shiftStartTime > 0) {
             startTimerUI();
         } else {
             stopTimerUI();
         }
 
+        // ================= РЕДАКТИРОВАНИЕ ПУНКТОВ ПО ОТДЕЛЬНОСТИ =================
         function updateProfileUI() {
             document.getElementById('profileName').innerText = userName;
             document.getElementById('profilePos').innerText = userPos;
             document.getElementById('profileBirth').innerText = userBirth;
         }
 
-        function editProfile() {
-            const newName = prompt("Введите ваше Имя и Фамилию:", userName);
-            if (newName && newName.trim()) {
-                userName = newName.trim();
-                localStorage.setItem('rf_name', userName);
-            }
-            const newPos = prompt("Укажите вашу должность в RigFort:", userPos);
-            if (newPos && newPos.trim()) {
-                userPos = newPos.trim();
-                localStorage.setItem('rf_pos', userPos);
-            }
-            const newBirth = prompt("Укажите дату рождения (ДД.ММ.ГГГГ):", userBirth);
-            if (newBirth && newBirth.trim()) {
-                userBirth = newBirth.trim();
-                localStorage.setItem('rf_birth', userBirth);
+        function editSingleField(field) {
+            if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+
+            if (field === 'name') {
+                const val = prompt("Введите ваше Имя и Фамилию:", userName);
+                if (val && val.trim()) {
+                    userName = val.trim();
+                    localStorage.setItem('rf_name', userName);
+                }
+            } else if (field === 'pos') {
+                const val = prompt("Укажите вашу должность в RigFort:", userPos);
+                if (val && val.trim()) {
+                    userPos = val.trim();
+                    localStorage.setItem('rf_pos', userPos);
+                }
+            } else if (field === 'birth') {
+                const val = prompt("Укажите дату рождения (например: 15.04.1995):", userBirth);
+                if (val && val.trim()) {
+                    userBirth = val.trim();
+                    localStorage.setItem('rf_birth', userBirth);
+                }
             }
             updateProfileUI();
+        }
+
+        // ================= ФОРМАТ РАБОТЫ (УДАЛЁНКА / ОФИС) =================
+        function toggleWorkMode() {
+            if (tg?.HapticFeedback) tg.HapticFeedback.selectionChanged();
+            workMode = (workMode === '🏠 Удалёнка') ? '🏢 Офис' : '🏠 Удалёнка';
+            localStorage.setItem('rf_work_mode', workMode);
+            document.getElementById('widgetWorkMode').innerText = workMode;
+        }
+
+        // ================= ИНДИКАТОР ДНЯ НЕДЕЛИ =================
+        function initWeekTracker() {
+            const dayOfWeek = new Date().getDay(); // 0 - Вс, 1 - Пн ... 5 - Пт
+            if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+                const chip = document.getElementById(`day-${dayOfWeek}`);
+                if (chip) chip.classList.add('active-today');
+            }
+        }
+
+        // ================= IOS ПЕРЕКЛЮЧАТЕЛЬ УВЕДОМЛЕНИЙ =================
+        function initNotifToggle() {
+            const isEnabled = localStorage.getItem('rf_notifs') !== 'false'; // по умолчанию включены
+            document.getElementById('notifToggle').checked = isEnabled;
+        }
+
+        function toggleNotifications(checked) {
+            if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
+            localStorage.setItem('rf_notifs', checked ? 'true' : 'false');
+        }
+
+        // ================= ЗАЩИТА ОТ ВЕЧНОЙ СМЕНЫ =================
+        function checkStaleShift() {
+            if (!isWorking || !shiftStartTime) return;
+
+            const now = Date.now();
+            const elapsedHours = (now - shiftStartTime) / (1000 * 3600);
+            const startDate = new Date(shiftStartTime);
+            const today = new Date();
+
+            if (elapsedHours >= 12 || startDate.getDate() !== today.getDate()) {
+                const plannedH = (currentSchedule === '7-15') ? 8 : 9;
+                const cappedSeconds = plannedH * 3600;
+
+                monthSeconds += cappedSeconds;
+                localStorage.setItem('rf_month_seconds', monthSeconds.toString());
+
+                isWorking = false;
+                shiftStartTime = 0;
+                localStorage.setItem('rf_is_working', 'false');
+                localStorage.removeItem('rf_shift_start');
+
+                alert(`⚠️ Уведомление диспетчера:\nСмена не была закрыта в регламентный срок.\nСистема зафиксировала нормативный рабочий интервал (${plannedH} ч.).`);
+            }
         }
 
         // ================= СТАРТ / СТОП СМЕНЫ =================
@@ -461,7 +731,6 @@
                 const m = Math.floor((elapsedSecs % 3600) / 60);
                 const durStr = `${h} ч. ${m} мин.`;
 
-                // Сохраняем завершённую смену с точным временем входа и выхода!
                 shiftHistory.push({
                     date: now.toLocaleDateString(),
                     start: shiftStartFormatted,
@@ -479,7 +748,7 @@
                 stopTimerUI();
                 updateMonthUI();
 
-                alert(`🔴 Смена завершена!\nВышел: в ${shiftStartFormatted}\nУшёл: в ${shiftEndFormatted}\n⏱ Отработано: ${durStr}`);
+                alert(`🔴 Смена завершена!\nВыход: ${shiftStartFormatted} | Финиш: ${shiftEndFormatted}\n⏱ Время: ${durStr}`);
             }
         }
 
@@ -488,7 +757,9 @@
             btn.className = 'btn btn-red-glow';
             btn.innerText = '🔴 Завершить смену';
 
-            document.getElementById('statusDot').className = 'status-dot active';
+            const dot = document.getElementById('statusDot');
+            dot.className = 'status-dot active'; // Green light glow
+
             document.getElementById('statusText').innerText = 'На смене (в работе)';
             document.getElementById('startMeta').innerText = 'Старт: ' + shiftStartFormatted;
 
@@ -503,7 +774,9 @@
             btn.className = 'btn btn-green-glow';
             btn.innerText = '🟢 Начать смену';
 
-            document.getElementById('statusDot').className = 'status-dot';
+            const dot = document.getElementById('statusDot');
+            dot.className = 'status-dot';
+
             document.getElementById('statusText').innerText = 'Не на смене (отдых)';
             document.getElementById('timerDisplay').innerText = '00:00:00';
             document.getElementById('progressBar').style.width = '0%';
@@ -513,8 +786,10 @@
 
         function tick() {
             if (!shiftStartTime) return;
-            const elapsed = Math.floor((Date.now() - shiftStartTime) / 1000);
+            checkStaleShift();
+            if (!isWorking) return;
 
+            const elapsed = Math.floor((Date.now() - shiftStartTime) / 1000);
             const h = String(Math.floor(elapsed / 3600)).padStart(2, '0');
             const m = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
             const s = String(elapsed % 60).padStart(2, '0');
@@ -526,7 +801,7 @@
             document.getElementById('percentLabel').innerText = percent + '%';
         }
 
-        // ================= ГРАФИК И ПРОФИЛЬ =================
+        // ================= ГРАФИК И СТАТИСТИКА =================
         function setSchedule(sched) {
             if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
             currentSchedule = sched;
@@ -537,12 +812,13 @@
         function updateScheduleUI() {
             document.getElementById('btnSched7').className = 'sched-btn ' + (currentSchedule === '7-15' ? 'selected' : '');
             document.getElementById('btnSched8').className = 'sched-btn ' + (currentSchedule === '8-17' ? 'selected' : '');
-            document.getElementById('endMeta').innerText = 'Конец: ' + (currentSchedule === '7-15' ? '15:00' : '17:00');
+            document.getElementById('endMeta').innerText = 'Финиш: ' + (currentSchedule === '7-15' ? '15:00' : '17:00');
+            document.getElementById('widgetPlannedTime').innerText = (currentSchedule === '7-15') ? '8 ч. 00 мин.' : '9 ч. 00 мин.';
         }
 
         function resetMonth() {
             if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('warning');
-            if (confirm("Вы точно хотите обнулить отработанные часы за этот месяц?")) {
+            if (confirm("Подтвердите обнуление отработанных часов за текущий месяц:")) {
                 monthSeconds = 0;
                 localStorage.setItem('rf_month_seconds', '0');
                 updateMonthUI();
@@ -555,7 +831,7 @@
             document.getElementById('profileMonth').innerText = `${h} ч. ${m} мин.`;
         }
 
-        // ================= АДМИН-ПАНЕЛЬ (РЕАЛЬНОЕ ВРЕМЯ ВЫХОДА И УХОДА) =================
+        // ================= АДМИН-ПАНЕЛЬ (ТОЧНЫЕ ВРЕМЕНА СМЕН) =================
         function showAdminOnline() {
             if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
             document.getElementById('adminOutputCard').style.display = 'block';
@@ -564,7 +840,7 @@
             if (isWorking) {
                 document.getElementById('adminOutputBody').innerHTML =
                     `🟢 <b>${userName}</b> (${userPos})<br>` +
-                    `• Вышел на смену: в <b>${shiftStartFormatted}</b><br>` +
+                    `• Вышел на смену: в <b>${shiftStartFormatted}</b> [${workMode}]<br>` +
                     `• График: ${currentSchedule === '7-15' ? '07:00–15:00' : '08:00–17:00'}`;
             } else {
                 document.getElementById('adminOutputBody').innerHTML =
@@ -581,13 +857,13 @@
             let output = `<b>Сотрудник:</b> ${userName}<br>`;
 
             if (isWorking) {
-                output += `🟢 <b>Сейчас на смене!</b><br>• Вышел на смену в: <b>${shiftStartFormatted}</b><br><br>`;
+                output += `🟢 <b>На смене прямо сейчас:</b><br>• Вышел на смену: в <b>${shiftStartFormatted}</b> [${workMode}]<br><br>`;
             }
 
             if (shiftHistory.length > 0) {
-                output += `<b>Завершённые смены:</b><br>`;
+                output += `<b>Завершённые интервалы:</b><br>`;
                 shiftHistory.forEach((s, idx) => {
-                    output += `• Смена #${idx+1}: Вышел в <b>${s.start}</b>, ушёл в <b>${s.end}</b> | Отработано: <b>${s.duration}</b><br>`;
+                    output += `• Смена #${idx+1}: Вышел в <b>${s.start}</b>, ушёл в <b>${s.end}</b> | <i>${s.duration}</i><br>`;
                 });
             } else if (!isWorking) {
                 output += `<i>За сегодня ещё нет завершённых смен.</i>`;
@@ -596,9 +872,10 @@
             document.getElementById('adminOutputBody').innerHTML = output;
         }
 
-        // ================= НАВИГАЦИЯ =================
+        // ================= ТАБЫ =================
         function switchTab(tabId) {
             if (tg?.HapticFeedback) tg.HapticFeedback.selectionChanged();
+
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-item').forEach(b => b.classList.remove('active'));
 
